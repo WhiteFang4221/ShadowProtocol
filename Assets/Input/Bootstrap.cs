@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bootstrap : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement _player;
+    [SerializeField] private Player _player;
     [SerializeField] private GameInput _input;
 
 
@@ -13,6 +13,6 @@ public class Bootstrap : MonoBehaviour
     {
         _input = new GameInput();
         _input.Enable();
-        _player.Initialize(_input);
+
     }
 }

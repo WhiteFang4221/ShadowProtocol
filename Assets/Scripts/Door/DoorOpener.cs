@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class DoorOpener : MonoBehaviour
 {
-       [SerializeField] private Rigidbody _leftDoorRigidbody;
+    [SerializeField] private DoorDetector _doorDetector;
+    [SerializeField] private Rigidbody _leftDoorRigidbody;
     [SerializeField] private Rigidbody _rightDoorRigidbody;
     [SerializeField] private float _openDistance = 2f; 
-    [SerializeField] private float _moveSpeed = 3f;     
-    [SerializeField] private bool _isOpen = false;
+    [SerializeField] private float _moveSpeed = 3f;
 
     private Vector3 _leftDoorStartPos;
     private Vector3 _rightDoorStartPos;
@@ -19,7 +19,7 @@ public class DoorOpener : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isOpen)
+        if (_doorDetector.IsDetected)
         {
             MoveDoorsToOpen();
         }
@@ -43,10 +43,5 @@ public class DoorOpener : MonoBehaviour
     {
         _leftDoorRigidbody.MovePosition(Vector3.MoveTowards(_leftDoorRigidbody.position, _leftDoorStartPos, _moveSpeed * Time.fixedDeltaTime));
         _rightDoorRigidbody.MovePosition(Vector3.MoveTowards(_rightDoorRigidbody.position, _rightDoorStartPos, _moveSpeed * Time.fixedDeltaTime));
-    }
-    
-    public void ToggleDoors()
-    {
-        _isOpen = !_isOpen;
     }
 }
