@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 8f;
+    [SerializeField] private float _rotationPerFrame = 0.2f;
     private GameInput _input;
     private Transform _transform;
     private Vector3 _moveDirection;
@@ -18,41 +17,40 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _transform = transform;
     }
-
+    
     private void FixedUpdate()
     {
         HandleInput();
-        
+        Rotate();
+        Move();
+    }
+
+    private void HandleInput()
+    {
+        _moveInput = _input.Gameplay.Move.ReadValue<Vector2>();
+    }
+
+    private void Move()
+    {
         if (InputIsZero())
             return;
-        
-        Move();
+
+        Vector3 direction = new Vector3(_moveInput.x, 0, _moveInput.y).normalized;
+        Vector3 targetPosition = _rigidbody.position + direction * (_speed * Time.fixedDeltaTime);
+        _rigidbody.MovePosition(targetPosition);
+    }
+
+    private void Rotate()
+    {
+        if (InputIsZero())
+            return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(_moveInput.x, 0, _moveInput.y));
+        _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotationPerFrame);
     }
 
     private bool InputIsZero()
     {
         return _moveInput == Vector2.zero;
     }
-    
-    private void Move()
-    {
-        Vector3 forward = _transform.forward;
-        Vector3 right = _transform.right;
-        
-        
-        _moveDirection = (forward * _moveInput.y + right * _moveInput.x) * _speed;
-        _rigidbody.velocity = new Vector3(_moveDirection.x, 0, _moveDirection.z);
-    }
-
-    private void Rotate()
-    {
-        
-    }
-    
-    private void HandleInput()
-    {
-        _moveInput = _input.Gameplay.Move.ReadValue<Vector2>();
-    }
-    
-    
 }
