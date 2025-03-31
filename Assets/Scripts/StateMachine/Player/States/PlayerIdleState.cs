@@ -15,6 +15,10 @@ public class PlayerIdleState : PlayerState
         {
             StateSwitcher.SwitchState<PlayerMovingState>();
         }
+        else
+        {
+            PlayerInstance.Rigidbody.velocity = Vector3.Lerp(PlayerInstance.Rigidbody.velocity, Vector3.zero, 5f * Time.fixedDeltaTime);
+        }
     }
 
     public override void Exit()
