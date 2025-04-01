@@ -12,9 +12,14 @@ public class PlayerStateMachine : StateMachine
             new PlayerMovingState(this, player.Data, player),
             new PlayerStunState(this, player.Data, player),
         };
-
+        
         CurrentState = States[0];
         CurrentState.Enter();
+    }
+
+    public void HandleInput()
+    {
+        ((PlayerState)CurrentState).HandleInput();
     }
 
 }

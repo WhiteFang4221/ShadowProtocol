@@ -6,11 +6,6 @@ public abstract class StateMachine : IStateSwitcher
 {
     protected List<IState> States = new List<IState>();
     protected IState CurrentState;
-    
-    public void HandleInput()
-    {
-        CurrentState.HandleInput();
-    }
 
     public void Update()
     {

@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     private Transform _transform;
     
     public PlayerData Data => _data;
-    public PlayerStateMachine StateMachineMachine => _stateMachine;
     public Rigidbody Rigidbody => _rigidbody;
     public GameInput Input => _input;
     public Transform Transform => _transform;
