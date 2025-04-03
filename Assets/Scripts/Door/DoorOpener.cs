@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorOpener : MonoBehaviour
@@ -7,6 +6,7 @@ public class DoorOpener : MonoBehaviour
     private const float OpenSpeed = 8f;
     private const float OpenDistance = 1f;
     
+    [SerializeField] private KeyCard _keyCard;
     [SerializeField] private DoorDetector _doorDetector;
     [SerializeField] private Rigidbody _leftDoorRigidbody;
     [SerializeField] private Rigidbody _rightDoorRigidbody;
@@ -29,12 +29,14 @@ public class DoorOpener : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_doorDetector.IsDetected)
+        if (_doorDetector.TriggeredObjects.Count > 0)
         {
-
-            OpenDoor();
+            if (IsHasKeyCard())
+            {
+                OpenDoor();
+            }
         }
-        else
+        else if (_doorDetector.TriggeredObjects.Count == 0 || IsHasKeyCard() == false)
         {
             CloseDoor();
         }
@@ -66,6 +68,19 @@ public class DoorOpener : MonoBehaviour
         }
         
         _closeCoroutine = StartCoroutine(CloseDoorRoutine());
+    }
+
+    private bool IsHasKeyCard()
+    {
+        foreach (IDoorEnterable enterable in _doorDetector.TriggeredObjects)
+        {
+            if (enterable.KeyCards.Contains(_keyCard))
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     private IEnumerator OpenDoorRoutine()

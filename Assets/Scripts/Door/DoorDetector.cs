@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class DoorDetector : MonoBehaviour
 {
-    private readonly List<Collider> _triggeredColliders = new(); 
+    private List<IDoorEnterable> _triggeredObjects = new(); 
     
-    public bool IsDetected { get; private set; }
-
-    private void Update()
-    {
-        IsDetected = _triggeredColliders.Count > 0;
-    }
+    public IReadOnlyList<IDoorEnterable> TriggeredObjects => _triggeredObjects;
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.TryGetComponent(out Player playerMovement))
+        if (collider.gameObject.TryGetComponent(out IDoorEnterable doorAccessable))
         {
-            _triggeredColliders.Add(collider.gameObject.GetComponent<Collider>());
+            Debug.Log("Entered door: " + doorAccessable);
+            _triggeredObjects.Add(doorAccessable);
         }
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        if (_triggeredColliders.Contains(collider))
+        if (collider.gameObject.TryGetComponent(out IDoorEnterable doorAccessable))
         {
-            _triggeredColliders.Remove(collider);
-        } 
+            _triggeredObjects.Remove(doorAccessable);
+        }
     }
 }

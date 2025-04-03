@@ -6,7 +6,7 @@ public class PlayerIdleState : PlayerState
 
     public override void Enter()
     {
-        Debug.Log("Entering PlayerIdleState");
+
     }
 
     public override void Update()

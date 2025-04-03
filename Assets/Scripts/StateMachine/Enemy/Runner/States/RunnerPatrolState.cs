@@ -1,37 +1,65 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class RunnerPatrolState : RunnerState
 {
-    public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
-
     private int _currentWaypointIndex = 0;
+    private Vector3 _targetPosition;
+
+    public Transform Transform => EnemyInstance.Transform;
+    public IReadOnlyList<Vector3> Waypoints => EnemyInstance.PatrolPoints.Waypoints;
+    public NavMeshAgent Agent => EnemyInstance.Agent;
+    
+    public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
     
     public override void Enter()
     {
-        Debug.Log("Начинаю идти");
-        EnemyInstance.Agent.isStopped = false;
-        EnemyInstance.Agent.speed = Data.Speed;
+        MoveToTarget();
+        Debug.Log($"Иду к точке {_targetPosition}");
     }
+
 
     public override void Update()
     {
-        if (Transform.position.IsEnoughClose())
+        if (Transform.position.IsEnoughClose(_targetPosition, Data.MinDistanceToTarget))
         {
-            _currentWaypointIndex = (_currentWaypointIndex + 1) % EnemyInstance.Waypoints.Count;
-            MoveToNextWaypoint();
+            Stop();
+            SetNextWaypoint();
+            StateSwitcher.SwitchState<RunnerWaitingState>();
         }
     }
 
-    public override void Exit()
+    public override void Exit(){}
+
+    private void SetTargetPosition()
     {
-        EnemyInstance.Agent.ResetPath(); // Останавливаем движение
+        _targetPosition = new Vector3(Waypoints[_currentWaypointIndex].x, Transform.position.y, Waypoints[_currentWaypointIndex].z);
+    }
+    
+    private void SetNextWaypoint()
+    {
+        if (_currentWaypointIndex + 1 < Waypoints.Count)
+        {
+            _currentWaypointIndex++;
+        }
+        else
+        {
+            _currentWaypointIndex = 0;
+        }
     }
 
-    private void MoveToNextWaypoint()
+    private void MoveToTarget()
     {
-        Transform targetWaypoint = EnemyInstance.Waypoints[_currentWaypointIndex];
-        EnemyInstance.Agent.SetDestination(targetWaypoint.position);
+        Agent.speed = Data.Speed;
+        Agent.isStopped = false;
+        SetTargetPosition();
+        Agent.SetDestination(_targetPosition);
+    }
+
+    private void Stop()
+    {
+        Agent.isStopped = true;
     }
 }

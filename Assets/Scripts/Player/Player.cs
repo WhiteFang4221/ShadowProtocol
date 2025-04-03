@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDoorEnterable
 {
     [SerializeField] private PlayerData _data;
     
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     public GameInput Input => _input;
     public Transform Transform => _transform;
 
+    public List<KeyCard> KeyCards { get; private set; } = new() { KeyCard.None };
+    
     private void Awake()
     {
         _stateMachine = new PlayerStateMachine(this);
@@ -34,4 +37,5 @@ public class Player : MonoBehaviour
     {
         _stateMachine.Update();
     }
+
 }

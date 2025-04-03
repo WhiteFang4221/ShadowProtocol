@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f3e131c8b7c704eadc92b7540f51e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCard: 0
   _doorDetector: {fileID: 5463769483416202953}
   _leftDoorRigidbody: {fileID: 3126320962008303297}
   _rightDoorRigidbody: {fileID: 7585948943981449760}
@@ -773,6 +774,7 @@ GameObject:
   - component: {fileID: 8300095146051523528}
   - component: {fileID: 7974777596333094051}
   - component: {fileID: 3126320962008303297}
+  - component: {fileID: 1702059555380064985}
   m_Layer: 6
   m_Name: LeftDoor
   m_TagString: Untagged
@@ -1139,6 +1141,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!208 &1702059555380064985
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4399223367357758850}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 1.5000001, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.25, y: 1.5000001, z: -0.5}
+  m_TimeToStationary: 0.5
 --- !u!1 &5614585265408561131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,6 +1172,7 @@ GameObject:
   - component: {fileID: 5000183015422466006}
   - component: {fileID: 2855258867410076282}
   - component: {fileID: 7585948943981449760}
+  - component: {fileID: 3941004759829483648}
   m_Layer: 6
   m_Name: RightDoor
   m_TagString: Untagged
@@ -1520,6 +1539,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!208 &3941004759829483648
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614585265408561131}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 1.5000001, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.25, y: 1.5000001, z: -0.5}
+  m_TimeToStationary: 0.5
 --- !u!1 &8622433817465515953
 GameObject:
   m_ObjectHideFlags: 0
