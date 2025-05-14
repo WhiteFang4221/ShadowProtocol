@@ -15,7 +15,7 @@ public abstract class Enemy : MonoBehaviour, IDoorEnterable
     
     public List<KeyCard> KeyCards { get; } = new List<KeyCard>() { KeyCard.None };
 
-    private void Awake()
+    private void Start()
     {
         Initialize();
     }

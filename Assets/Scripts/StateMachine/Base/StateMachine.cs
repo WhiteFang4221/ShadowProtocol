@@ -4,7 +4,7 @@ using System.Linq;
 
 public abstract class StateMachine : IStateSwitcher
 {
-    protected List<IState> States = new List<IState>();
+    protected List<IState> States = new();
     protected IState CurrentState;
 
     public void Update()

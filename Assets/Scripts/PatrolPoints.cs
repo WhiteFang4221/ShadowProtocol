@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PatrolPoints : MonoBehaviour
 {
-    private List<Vector3> _waypoints = new List<Vector3>();
+    [SerializeField] private List<Vector3> _waypoints = new();
     
     public IReadOnlyList<Vector3> Waypoints => _waypoints;
 

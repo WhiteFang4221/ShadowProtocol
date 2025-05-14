@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Runner : Enemy
 {
@@ -16,6 +13,7 @@ public class Runner : Enemy
     {
         base.Initialize();
         _stateMachine = new RunnerStateMachine(this);
+        Debug.Log(_stateMachine);
     }
 
     private void Update()
