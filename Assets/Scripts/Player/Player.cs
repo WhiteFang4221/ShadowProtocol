@@ -1,4 +1,4 @@
-using System;
+using Reflex.Attributes; 
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class Player : MonoBehaviour, IDoorEnterable
     
     private PlayerStateMachine _stateMachine;
     private Rigidbody _rigidbody;
-    private GameInput _input;
+    [Inject] private GameInput _input;
     private Transform _transform;
     
     public PlayerData Data => _data;
@@ -23,7 +23,6 @@ public class Player : MonoBehaviour, IDoorEnterable
     {
         _stateMachine = new PlayerStateMachine(this);
         _rigidbody = GetComponent<Rigidbody>();
-        _input = new GameInput();
         _input.Enable();
         _transform = transform;
     }
