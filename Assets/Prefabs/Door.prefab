@@ -18,8 +18,8 @@ GameObject:
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1417406127272272769
 Transform:
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2990
+  m_VersionIndex: 2996
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -424,8 +424,8 @@ GameObject:
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8511175510854589340
 Transform:
@@ -654,7 +654,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2867
+  m_VersionIndex: 2873
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -774,7 +774,6 @@ GameObject:
   - component: {fileID: 8300095146051523528}
   - component: {fileID: 7974777596333094051}
   - component: {fileID: 3126320962008303297}
-  - component: {fileID: 1702059555380064985}
   m_Layer: 6
   m_Name: LeftDoor
   m_TagString: Untagged
@@ -1009,7 +1008,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3186
+  m_VersionIndex: 3192
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1141,22 +1140,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!208 &1702059555380064985
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4399223367357758850}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.25, y: 1.5000001, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.25, y: 1.5000001, z: -0.5}
-  m_TimeToStationary: 0.5
 --- !u!1 &5614585265408561131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,7 +1155,6 @@ GameObject:
   - component: {fileID: 5000183015422466006}
   - component: {fileID: 2855258867410076282}
   - component: {fileID: 7585948943981449760}
-  - component: {fileID: 3941004759829483648}
   m_Layer: 6
   m_Name: RightDoor
   m_TagString: Untagged
@@ -1407,7 +1389,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3186
+  m_VersionIndex: 3192
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1539,22 +1521,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!208 &3941004759829483648
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5614585265408561131}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.25, y: 1.5000001, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.25, y: 1.5000001, z: -0.5}
-  m_TimeToStationary: 0.5
 --- !u!1 &8622433817465515953
 GameObject:
   m_ObjectHideFlags: 0
