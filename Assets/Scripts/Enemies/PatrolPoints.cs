@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PatrolPoints : MonoBehaviour
 {
-    [SerializeField] private List<Vector3> _waypoints = new();
+    [SerializeField] private List<PatrolPoint> _waypoints = new();
     
-    public IReadOnlyList<Vector3> Waypoints => _waypoints;
+    public IReadOnlyList<PatrolPoint> Waypoints => _waypoints;
 
     private void Awake()
     {
@@ -18,7 +18,8 @@ public class PatrolPoints : MonoBehaviour
         
         foreach (Transform child in transform)
         {
-            _waypoints.Add(child.position);
+           if(child.gameObject.TryGetComponent(out PatrolPoint patrolPoint))
+                _waypoints.Add(patrolPoint);
         }
     }
 }

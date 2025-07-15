@@ -9,7 +9,7 @@ public class RunnerPatrolState : RunnerState
     private Vector3 _targetPosition;
 
     public Transform Transform => EnemyInstance.Transform;
-    public IReadOnlyList<Vector3> Waypoints => EnemyInstance.PatrolPoints.Waypoints;
+    public IReadOnlyList<PatrolPoint> Waypoints => EnemyInstance.PatrolPoints.Waypoints;
     public NavMeshAgent Agent => EnemyInstance.Agent;
     
     public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
@@ -17,6 +17,7 @@ public class RunnerPatrolState : RunnerState
     public override void Enter()
     {
         MoveToTarget();
+        EnemyInstance.Data.TimeToWait = Waypoints[_currentWaypointIndex].WaitTime;
         Debug.Log($"Иду к точке {_targetPosition}");
     }
 
@@ -33,10 +34,6 @@ public class RunnerPatrolState : RunnerState
 
     public override void Exit(){}
 
-    private void SetTargetPosition()
-    {
-        _targetPosition = new Vector3(Waypoints[_currentWaypointIndex].x, Transform.position.y, Waypoints[_currentWaypointIndex].z);
-    }
     
     private void SetNextWaypoint()
     {
@@ -61,5 +58,11 @@ public class RunnerPatrolState : RunnerState
     private void Stop()
     {
         Agent.isStopped = true;
+    }
+    
+    private void SetTargetPosition()
+    {
+        _targetPosition = new Vector3(Waypoints[_currentWaypointIndex].Transform.position.x, Transform.position.y, Waypoints[_currentWaypointIndex].Transform.position.z);
+        EnemyInstance.Data.TimeToWait = Waypoints[_currentWaypointIndex].WaitTime;
     }
 }

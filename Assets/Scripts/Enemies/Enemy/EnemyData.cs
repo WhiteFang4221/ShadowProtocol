@@ -7,7 +7,7 @@ public class EnemyData : ScriptableObject
     public readonly float MinDistanceToTarget = 0.1f;
     
     [SerializeField, Range(0, 15)] private float _speed = 15;
-    [SerializeField, Range(1, 5)] private float _timeToWait = 2f;
+    private float _timeToWait;
     
     public float Speed
     {
