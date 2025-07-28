@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class RunnerPatrolState : RunnerState
 {
-    private int _currentWaypointIndex = 0;
+    private int _currentWaypointIndex;
     private Vector3 _targetPosition;
 
     public Transform Transform => EnemyInstance.Transform;
@@ -18,7 +18,6 @@ public class RunnerPatrolState : RunnerState
     {
         MoveToTarget();
         EnemyInstance.Data.TimeToWait = Waypoints[_currentWaypointIndex].WaitTime;
-        Debug.Log($"Иду к точке {_targetPosition}");
     }
 
 
@@ -63,6 +62,5 @@ public class RunnerPatrolState : RunnerState
     private void SetTargetPosition()
     {
         _targetPosition = new Vector3(Waypoints[_currentWaypointIndex].Transform.position.x, Transform.position.y, Waypoints[_currentWaypointIndex].Transform.position.z);
-        EnemyInstance.Data.TimeToWait = Waypoints[_currentWaypointIndex].WaitTime;
     }
 }

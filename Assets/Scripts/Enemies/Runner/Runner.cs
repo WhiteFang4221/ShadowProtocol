@@ -7,7 +7,6 @@ public class Runner : Enemy
     private RunnerStateMachine _stateMachine;
     
     public PatrolPoints PatrolPoints => _patrolPoints;
-    public bool HasAcces { get; }
     
     protected override void Initialize()
     {

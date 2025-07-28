@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Runner
   m_EditorClassIdentifier: 
   _speed: 5
-  _timeToWait: 1
+  _followSpeed: 7
+  _rotationSpeed: 189
