@@ -9,93 +9,79 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstacleMask;
     [SerializeField] private float _viewDelay = 0.2f;
-    [SerializeField] private float _alertTime = 5f;
-    
+    [SerializeField] private float _viewAngle = 90f;
     [Inject] private IPlayerPosition _playerPosition;
-
-    private bool _isAlerted = false;
     
     private Coroutine _findTargetCoroutine;
-    private float _halfViewAngle => ViewAngle / 2f;
+    private Coroutine _findNearbyTargetCoroutine;
+    
+    [field: SerializeField] public float AlertTime { get; private set; } = 5f;
     [field: SerializeField] public float ViewRadius { get; private set; }
-    [field: SerializeField] public float AlertRadius { get; private set; }
-    [field: SerializeField] public float ViewAngle { get; private set; }
+    [field: SerializeField] public float NearbyRadius { get; private set; }
+    public float HalfViewAngle => _viewAngle / 2f;
     public Transform VisibleTarget { get; private set; }
 
     public event Action PlayerSpotted;
-    
+
     private void Start()
     {
         StartFindTargetCoroutine();
     }
-    
+
     private void OnDisable()
     {
-       StopFindTargetCoroutine();
+        StopFindTargetCoroutine();
     }
-    
+
+    // ReSharper disable Unity.PerformanceAnalysis
     private void CheckPlayerVisibility()
     {
         Vector3 dirToPlayer = (_playerPosition.Transform.position - transform.position).normalized;
         float distanceToPlayer = Vector3.Distance(transform.position, _playerPosition.Transform.position);
-        
+
         bool isInRadius = distanceToPlayer <= ViewRadius;
-        bool isInAngle = Vector3.Angle(transform.forward, dirToPlayer) <= _halfViewAngle;
+        bool isInAngle = Vector3.Angle(transform.forward, dirToPlayer) <= HalfViewAngle;
         bool hasLineOfSight = !Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, _obstacleMask);
 
         bool canSeePlayer = isInRadius && isInAngle && hasLineOfSight;
 
         if (canSeePlayer)
         {
-            VisibleTarget = _playerPosition.Transform;
-            PlayerSpotted?.Invoke();
+            StopNearbyLookTargetRoutine();
+            FollowTarget();
         }
         else
         {
-            if (_isAlerted == false)
+            VisibleTarget = null;
+            
+            if (_findNearbyTargetCoroutine is null)
             {
-                StartCoroutine(AlertLookTarget());
+                StartNearbyLookTargetRoutine();
             }
         }
-        
     }
-    
+
     public Vector3 DirFromAngle(float angleInDegrees)
     {
         angleInDegrees += transform.eulerAngles.y;
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
-    private IEnumerator AlertLookTarget()
+    private IEnumerator NearbyLookTarget()
     {
-        _isAlerted = true;
         float timer = 0f;
 
-        while (timer < _alertTime)
+        while (timer < AlertTime)
         {
+            if (IsPlayerInNearestZone())
+            {
+                FollowTarget();
+                StopNearbyLookTargetRoutine();
+            }
+
             yield return new WaitForSeconds(_viewDelay);
             timer += _viewDelay;
-
-            if (CheckPlayerInAlertZone())
-            {
-                VisibleTarget = _playerPosition.Transform;
-                PlayerSpotted?.Invoke();
-                yield break;
-            }
         }
-
-        VisibleTarget = null;
-        _isAlerted = false;
-    }
-    
-    private bool CheckPlayerInAlertZone()
-    {
-        Vector3 dirToPlayer = (_playerPosition.Transform.position - transform.position).normalized;
-        float distanceToPlayer = Vector3.Distance(transform.position, _playerPosition.Transform.position);
-        bool isInRadius = distanceToPlayer <= AlertRadius;
-        bool hasLineOfSight = !Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, _obstacleMask);
-
-        return isInRadius && hasLineOfSight;
     }
     
     private IEnumerator LookTarget(float delay)
@@ -104,6 +90,37 @@ public class FieldOfView : MonoBehaviour
         {
             yield return new WaitForSeconds(delay);
             CheckPlayerVisibility();
+        }
+    }
+
+    private void FollowTarget()
+    {
+        VisibleTarget = _playerPosition.Transform;
+        PlayerSpotted?.Invoke();
+    }
+    
+    private bool IsPlayerInNearestZone()
+    {
+        Vector3 dirToPlayer = (_playerPosition.Transform.position - transform.position).normalized;
+        float distanceToPlayer = Vector3.Distance(transform.position, _playerPosition.Transform.position);
+        bool isInRadius = distanceToPlayer <= NearbyRadius;
+        bool hasLineOfSight = !Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, _obstacleMask);
+
+        return isInRadius && hasLineOfSight;
+    }
+
+    private void StartNearbyLookTargetRoutine()
+    {
+        StopNearbyLookTargetRoutine();
+        _findNearbyTargetCoroutine = StartCoroutine(NearbyLookTarget());
+    }
+
+    private void StopNearbyLookTargetRoutine()
+    {
+        if (_findNearbyTargetCoroutine is not null)
+        {
+            StopCoroutine(_findNearbyTargetCoroutine);
+            _findNearbyTargetCoroutine = null;
         }
     }
 

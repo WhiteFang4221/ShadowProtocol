@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class RunnerAttackState : RunnerState
 {
@@ -6,16 +7,14 @@ public class RunnerAttackState : RunnerState
 
     public override void Enter()
     {
-        throw new NotImplementedException();
+        Debug.Log("Атакую");
     }
 
     public override void Update()
     {
-        throw new NotImplementedException();
     }
 
     public override void Exit()
     {
-        throw new NotImplementedException();
     }
 }

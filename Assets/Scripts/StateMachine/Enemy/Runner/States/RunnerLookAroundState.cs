@@ -32,18 +32,24 @@ public class RunnerLookAroundState: RunnerState
 
     private IEnumerator LookAroundRoutine()
     {
+        float timer = 0;
         Quaternion originalRotation = EnemyInstance.Transform.rotation;
-        Quaternion leftRotation = Quaternion.Euler(0, -_rotationAngle, 0) * originalRotation;
-        Quaternion rightRotation = Quaternion.Euler(0, _rotationAngle, 0) * originalRotation;
+
+        while (timer < EnemyInstance.FieldOfView.AlertTime)
+        {
+            Quaternion leftRotation = Quaternion.Euler(0, -_rotationAngle, 0) * originalRotation;
+            Quaternion rightRotation = Quaternion.Euler(0, _rotationAngle, 0) * originalRotation;
     
-        yield return _lookAroundDelay;
-        yield return RotateTo(leftRotation);
-        yield return _lookAroundDelay;
+            yield return _lookAroundDelay;
+            yield return RotateTo(leftRotation);
+            yield return _lookAroundDelay;
 
-        yield return RotateTo(rightRotation);
-        yield return _lookAroundDelay;
-
-        yield return RotateTo(originalRotation);
+            yield return RotateTo(rightRotation);
+            yield return _lookAroundDelay;
+            
+            timer  += Time.deltaTime;
+        }
+        
 
         StateSwitcher.SwitchState<RunnerPatrolState>();
     }

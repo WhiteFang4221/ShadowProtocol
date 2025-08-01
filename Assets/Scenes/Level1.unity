@@ -6013,8 +6013,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: _viewAngle
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: <ViewAngle>k__BackingField
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: <ViewRadius>k__BackingField
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: <AlertRadius>k__BackingField
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: <NearbyRadius>k__BackingField
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_Speed
@@ -6026,7 +6042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_Acceleration
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_AngularSpeed
