@@ -17,7 +17,7 @@ public class RunnerPatrolState : RunnerState
     public override void Enter()
     {
         MoveToTarget();
-        EnemyInstance.Data.TimeToWait = Waypoints[_currentWaypointIndex].WaitTime;
+        EnemyInstance.Data.TimeToWaitPatrolPoint = Waypoints[_currentWaypointIndex].WaitTime;
     }
 
 

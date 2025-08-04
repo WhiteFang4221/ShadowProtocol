@@ -5,10 +5,12 @@ using UnityEngine;
 public class RunnerLookAroundState: RunnerState
 {
     private Coroutine _lookAroundRoutine;
+    private Coroutine _timerAlertRoutine;
     private WaitForSeconds _lookAroundDelay = new WaitForSeconds(0.5f);
     private float _rotationAngle = 60f;
+    private bool _isStateFinished = false;
     public int RotationSpeed => Data.RotationSpeed;
-    public Transform VisibleTarget => EnemyInstance.FieldOfView.VisibleTarget;
+    public Transform VisibleTarget => EnemyInstance.EnemyVision.VisibleTarget;
     
     public RunnerLookAroundState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
 
@@ -32,25 +34,22 @@ public class RunnerLookAroundState: RunnerState
 
     private IEnumerator LookAroundRoutine()
     {
-        float timer = 0;
+        StartTimerRoutine();
         Quaternion originalRotation = EnemyInstance.Transform.rotation;
-
-        while (timer < EnemyInstance.FieldOfView.AlertTime)
+        
+        while (!_isStateFinished)
         {
             Quaternion leftRotation = Quaternion.Euler(0, -_rotationAngle, 0) * originalRotation;
             Quaternion rightRotation = Quaternion.Euler(0, _rotationAngle, 0) * originalRotation;
-    
+
             yield return _lookAroundDelay;
             yield return RotateTo(leftRotation);
             yield return _lookAroundDelay;
-
             yield return RotateTo(rightRotation);
             yield return _lookAroundDelay;
-            
-            timer  += Time.deltaTime;
         }
-        
 
+        _isStateFinished = false;
         StateSwitcher.SwitchState<RunnerPatrolState>();
     }
 
@@ -66,6 +65,12 @@ public class RunnerLookAroundState: RunnerState
             yield return null;
         }
     }
+    
+    private IEnumerator TimerRoutine()
+    {
+        yield return new WaitForSeconds(EnemyInstance.Data.AlertTime);
+        _isStateFinished = true;
+    }
 
     private void StartLookAroundCoroutine()
     {
@@ -79,6 +84,21 @@ public class RunnerLookAroundState: RunnerState
         {
             EnemyInstance.StopCoroutine(_lookAroundRoutine);
             _lookAroundRoutine = null;
+        }
+    }
+    
+    private void StartTimerRoutine()
+    {
+        StopTimerRoutine();
+        _timerAlertRoutine = EnemyInstance.StartCoroutine(TimerRoutine());
+    }
+
+    private void StopTimerRoutine()
+    {
+        if (_timerAlertRoutine != null)
+        {
+            EnemyInstance.StopCoroutine(_timerAlertRoutine);
+            _timerAlertRoutine = null;
         }
     }
 }

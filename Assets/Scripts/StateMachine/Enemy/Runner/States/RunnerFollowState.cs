@@ -8,7 +8,7 @@ public class RunnerFollowState : RunnerState
     
     public Transform Transform => EnemyInstance.Transform;
     public NavMeshAgent Agent => EnemyInstance.Agent;
-    public Transform VisibleTarget => EnemyInstance.FieldOfView.VisibleTarget;
+    public Transform VisibleTarget => EnemyInstance.EnemyVision.VisibleTarget;
     public RunnerFollowState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
 
     public override void Enter()
@@ -45,7 +45,7 @@ public class RunnerFollowState : RunnerState
 
     private void MoveToTarget()
     {
-        _lastTargetPosition = EnemyInstance.FieldOfView.VisibleTarget.position;
+        _lastTargetPosition = EnemyInstance.EnemyVision.VisibleTarget.position;
         Agent.SetDestination(_lastTargetPosition);
     }
     

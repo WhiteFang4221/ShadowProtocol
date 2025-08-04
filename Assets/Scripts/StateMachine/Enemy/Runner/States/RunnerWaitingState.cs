@@ -15,7 +15,7 @@ public class RunnerWaitingState : RunnerState
     {
         _timerCount += Time.deltaTime;
 
-        if (_timerCount >= Data.TimeToWait)
+        if (_timerCount >= Data.TimeToWaitPatrolPoint)
         {
             StateSwitcher.SwitchState<RunnerPatrolState>();
         }

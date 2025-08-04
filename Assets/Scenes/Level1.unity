@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f1f9e71a9feac4d81577da91628378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 0
+  WaitTime: 1
 --- !u!1 &164849645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,7 +1568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f1f9e71a9feac4d81577da91628378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 0
+  WaitTime: 5
 --- !u!43 &802022440
 Mesh:
   m_ObjectHideFlags: 0
@@ -2782,7 +2782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f1f9e71a9feac4d81577da91628378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 0
+  WaitTime: 2
 --- !u!1 &1061296364
 GameObject:
   m_ObjectHideFlags: 0
@@ -5333,17 +5333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7613ab41efd70f4cb388a21aa419e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1944267542 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-  m_PrefabInstance: {fileID: 5424539819526073619}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 266622f15088d20448b652dad45c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &2116305590
 Mesh:
   m_ObjectHideFlags: 0
@@ -6013,44 +6002,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: _viewAngle
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: <ViewAngle>k__BackingField
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: <ViewRadius>k__BackingField
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: <AlertRadius>k__BackingField
+      propertyPath: _enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: 998a0619436ce6d48896591e45ca87b7, type: 2}
+    - target: {fileID: 1647510547340900102, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: _enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: 998a0619436ce6d48896591e45ca87b7, type: 2}
+    - target: {fileID: 1647510547340900102, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: <AlertTime>k__BackingField
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: <NearbyRadius>k__BackingField
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: m_Speed
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: m_Acceleration
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: m_AngularSpeed
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2979281570186498112, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6096,10 +6057,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
-      propertyPath: _fieldOfView
-      value: 
-      objectReference: {fileID: 1944267542}
     - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: _patrolPoints
       value: 

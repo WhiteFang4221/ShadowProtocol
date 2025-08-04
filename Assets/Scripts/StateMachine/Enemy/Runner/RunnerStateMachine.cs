@@ -2,11 +2,11 @@
 
 public class RunnerStateMachine : StateMachine
 {
-    private FieldOfView _fieldOfView;
+    private EnemyVision _enemyVision;
     public RunnerStateMachine(Runner runner)
     {
-        _fieldOfView = runner.FieldOfView;
-        _fieldOfView.PlayerSpotted += HandlePlayerSpotted;
+        _enemyVision = runner.EnemyVision;
+        _enemyVision.PlayerSpotted += HandlePlayerSpotted;
         
         States = new List<IState>()
         {

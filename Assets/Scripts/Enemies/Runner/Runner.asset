@@ -14,4 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _followSpeed: 7
-  _rotationSpeed: 189
+  _rotationSpeed: 90
+  _obstacleMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _viewAngle: 90
+  _viewRadius: 10
+  _nearbyRadius: 3
+  _viewDelay: 0.2
+  _alertTime: 5

@@ -4,62 +4,33 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "DataAsset/Enemy")] 
 public class EnemyData : ScriptableObject
 {
+    [Header("Movement")]
+    [SerializeField, Range(0, 5)] private float _speed = 3.5f;
+    [SerializeField, Range(5, 10)] private float _followSpeed = 7f;
+    [SerializeField, Range(1, 90)] private int _rotationSpeed = 5;
+    private float _timeToWaitPatrolPoint;
+    
+    [Header("Vision")]
+    [SerializeField] private LayerMask _obstacleMask;
+    [SerializeField] private LayerMask _targetMask;
+    [SerializeField, Range(0, 360)] private float _viewAngle = 90f;
+    [SerializeField] private float _viewRadius = 10f;
+    [SerializeField] private float _nearbyRadius = 3f;
+    [SerializeField] private float _viewDelay = 0.2f;
+    [SerializeField] private float _alertTime = 5f;
+    
     public readonly float MinDistanceToTarget = 0.1f;
     
-    [SerializeField, Range(0, 5)] private float _speed = 3.5f;
-    [SerializeField, Range(1, 10)] private float _followSpeed = 7f;
-    [SerializeField, Range(1, 360)] private int _rotationSpeed = 5;
-    private float _timeToWait;
-    
-    public float Speed
-    {
-        get { return _speed; }
+    public float Speed { get => _speed; set => _speed = Mathf.Clamp(value, 0, 5); }
+    public float FollowSpeed { get => _followSpeed; set => _followSpeed = Mathf.Clamp(value, 5, 10); }
+    public int RotationSpeed { get => _rotationSpeed; set => _rotationSpeed = Mathf.Clamp(value, 1, 90); }
+    public float TimeToWaitPatrolPoint { get => _timeToWaitPatrolPoint; set => _timeToWaitPatrolPoint = Mathf.Max(0, value); }
 
-        set
-        {
-            if (value >= 0 && value <= 5)
-                _speed = value;
-            else
-                throw new ArgumentOutOfRangeException(nameof(_speed));
-        }
-    }
-    
-    public float FollowSpeed
-    {
-        get { return _followSpeed; }
-
-        set
-        {
-            if (value >= 5 && value <= 10)
-                _followSpeed = value;
-            else
-                throw new ArgumentOutOfRangeException(nameof(_followSpeed));
-        }
-    }
-    
-    public int RotationSpeed
-    {
-        get { return _rotationSpeed; }
-
-        set
-        {
-            if (value >= 1 && value <= 90)
-                _rotationSpeed = value;
-            else
-                throw new ArgumentOutOfRangeException(nameof(_rotationSpeed));
-        }
-    }
-    
-    public float TimeToWait
-    {
-        get { return _timeToWait; }
-
-        set
-        {
-            if (value >= 0)
-                _timeToWait = value;
-            else
-                throw new ArgumentOutOfRangeException(nameof(_timeToWait));
-        }
-    }
+    public LayerMask ObstacleMask => _obstacleMask;
+    public LayerMask TargetMask => _targetMask;
+    public float ViewAngle => _viewAngle;
+    public float ViewRadius => _viewRadius;
+    public float NearbyRadius => _nearbyRadius;
+    public float ViewDelay => _viewDelay;
+    public float AlertTime => _alertTime;
 }
