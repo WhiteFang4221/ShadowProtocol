@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class RunnerPatrolState : RunnerState
 {
-    private int _currentWaypointIndex;
     private Vector3 _targetPosition;
 
     public Transform Transform => EnemyInstance.Transform;
     public IReadOnlyList<PatrolPoint> Waypoints => EnemyInstance.PatrolPoints.Waypoints;
+    public int CurrentWaypointIndex => EnemyInstance.CurrentWaypoint;
     public NavMeshAgent Agent => EnemyInstance.Agent;
     
     public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
@@ -17,7 +17,6 @@ public class RunnerPatrolState : RunnerState
     public override void Enter()
     {
         MoveToTarget();
-        EnemyInstance.Data.TimeToWaitPatrolPoint = Waypoints[_currentWaypointIndex].WaitTime;
     }
 
 
@@ -31,19 +30,26 @@ public class RunnerPatrolState : RunnerState
         }
     }
 
-    public override void Exit(){}
+    public override void Exit()
+    {
+        
+    }
 
     
     private void SetNextWaypoint()
     {
-        if (_currentWaypointIndex + 1 < Waypoints.Count)
+        int currentWaypoint;
+        
+        if (CurrentWaypointIndex + 1 < Waypoints.Count)
         {
-            _currentWaypointIndex++;
+            currentWaypoint = CurrentWaypointIndex + 1;
         }
         else
         {
-            _currentWaypointIndex = 0;
+            currentWaypoint = 0;
         }
+        
+        EnemyInstance.SetCurrentWaypoint(currentWaypoint);
     }
 
     private void MoveToTarget()
@@ -61,6 +67,6 @@ public class RunnerPatrolState : RunnerState
     
     private void SetTargetPosition()
     {
-        _targetPosition = new Vector3(Waypoints[_currentWaypointIndex].Transform.position.x, Transform.position.y, Waypoints[_currentWaypointIndex].Transform.position.z);
+        _targetPosition = new Vector3(Waypoints[CurrentWaypointIndex].Transform.position.x, Transform.position.y, Waypoints[CurrentWaypointIndex].Transform.position.z);
     }
 }

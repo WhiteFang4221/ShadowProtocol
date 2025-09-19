@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "DataAsset/Enemy")] 
 public class EnemyData : ScriptableObject
 {
+    public readonly float MinDistanceToTarget = 0.1f;
+    
     [Header("Movement")]
     [SerializeField, Range(0, 5)] private float _speed = 3.5f;
     [SerializeField, Range(5, 10)] private float _followSpeed = 7f;
@@ -19,7 +21,6 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _viewDelay = 0.2f;
     [SerializeField] private float _alertTime = 5f;
     
-    public readonly float MinDistanceToTarget = 0.1f;
     
     public float Speed { get => _speed; set => _speed = Mathf.Clamp(value, 0, 5); }
     public float FollowSpeed { get => _followSpeed; set => _followSpeed = Mathf.Clamp(value, 5, 10); }
