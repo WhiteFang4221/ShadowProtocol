@@ -6,10 +6,7 @@ public class PlayerMovingState : PlayerState
 {
     public PlayerMovingState(IStateSwitcher stateSwitcher, PlayerData data, Player player) : base(stateSwitcher, data, player){ }
 
-    public override void Enter()
-    {
-        Debug.Log("Entering PlayerMovingState");
-    }
+    public override void Enter(){}
     
     public override void Update()
     {

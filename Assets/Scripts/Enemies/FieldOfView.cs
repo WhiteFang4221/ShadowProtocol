@@ -6,9 +6,6 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private EnemyData _enemyData;
     [Inject] private IPlayerPosition _playerPosition;
 
-    private Coroutine _findTargetCoroutine;
-    private Coroutine _findNearbyTargetCoroutine;
-
     public float ViewRadius => _enemyData.ViewRadius;
     public float NearbyRadius => _enemyData.NearbyRadius;
     public float HalfViewAngle => _enemyData.ViewAngle / 2f;
