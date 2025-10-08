@@ -4,10 +4,7 @@ public class PlayerIdleState : PlayerState
 {
     public PlayerIdleState(IStateSwitcher stateSwitcher, PlayerData data, Player player) : base(stateSwitcher, data, player){ }
 
-    public override void Enter()
-    {
-
-    }
+    public override void Enter(){}
 
     public override void Update()
     {
@@ -21,8 +18,5 @@ public class PlayerIdleState : PlayerState
         }
     }
 
-    public override void Exit()
-    {
-        
-    }
+    public override void Exit(){}
 }

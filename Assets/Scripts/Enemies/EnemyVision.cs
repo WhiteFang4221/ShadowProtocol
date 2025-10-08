@@ -13,7 +13,7 @@ public class EnemyVision : MonoBehaviour
     private Coroutine _findNearbyTargetCoroutine;
     private Coroutine _findTargetCoroutine;
 
-    private WaitForSeconds _viewDelay => new WaitForSeconds(_enemyData.ViewDelay);
+    private WaitForSeconds _viewDelay => new (_enemyData.ViewDelay);
     public Transform VisibleTarget { get; private set; } 
     
     public event Action PlayerSpotted;
