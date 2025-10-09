@@ -10,7 +10,6 @@ public class EnemyData : ScriptableObject
     [SerializeField, Range(0, 5)] private float _speed = 3.5f;
     [SerializeField, Range(5, 10)] private float _followSpeed = 7f;
     [SerializeField, Range(1, 90)] private int _rotationSpeed = 5;
-    private float _timeToWaitPatrolPoint;
     
     [Header("Vision")]
     [SerializeField] private LayerMask _obstacleMask;
@@ -25,7 +24,6 @@ public class EnemyData : ScriptableObject
     public float Speed { get => _speed; set => _speed = Mathf.Clamp(value, 0, 5); }
     public float FollowSpeed { get => _followSpeed; set => _followSpeed = Mathf.Clamp(value, 5, 10); }
     public int RotationSpeed { get => _rotationSpeed; set => _rotationSpeed = Mathf.Clamp(value, 1, 90); }
-    public float TimeToWaitPatrolPoint { get => _timeToWaitPatrolPoint; set => _timeToWaitPatrolPoint = Mathf.Max(0, value); }
 
     public LayerMask ObstacleMask => _obstacleMask;
     public LayerMask TargetMask => _targetMask;

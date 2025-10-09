@@ -21,8 +21,8 @@ public class EnemyVisionEditor : Editor
         Handles.DrawLine(enemyVision.transform.position, enemyVision.transform.position + viewAngleB * data.ViewRadius);
         Handles.color = Color.red;
         
-        if (enemyVision.VisibleTarget is not null)
-            Handles.DrawLine(enemyVision.transform.position, enemyVision.VisibleTarget.position);
+        // if (enemyVision.TargetPos is not null)
+        //     Handles.DrawLine(enemyVision.transform.position, enemyVision.TargetPos.position);
     }
     
     private Vector3 DirFromAngle(float angleInDegrees, EnemyVision vision)

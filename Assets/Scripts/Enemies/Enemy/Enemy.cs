@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(FieldOfView))]
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDoorEnterable
 {
     [SerializeField] private EnemyData _data;
     [SerializeField] private EnemyVision _enemyVision;
@@ -28,4 +28,6 @@ public abstract class Enemy : MonoBehaviour
         _meshAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
     }
+
+    public List<KeyCard> KeyCards { get; private set; } = new() { KeyCard.None };
 }

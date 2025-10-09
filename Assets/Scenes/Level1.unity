@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -167,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f1f9e71a9feac4d81577da91628378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 1
+  WaitTime: 0
 --- !u!1 &164849645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,7 +1567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f1f9e71a9feac4d81577da91628378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitTime: 5
+  WaitTime: 1
 --- !u!43 &802022440
 Mesh:
   m_ObjectHideFlags: 0
@@ -6010,8 +6009,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 998a0619436ce6d48896591e45ca87b7, type: 2}
     - target: {fileID: 1647510547340900102, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: _memoryTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647510547340900102, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: <AlertTime>k__BackingField
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2979281570186498112, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6137,6 +6144,10 @@ PrefabInstance:
     - target: {fileID: 1188951478634316919, guid: 4ea483f0e4d4a494cbed0bb1ce70ce40, type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 1999131066477999904, guid: 4ea483f0e4d4a494cbed0bb1ce70ce40, type: 3}
+      propertyPath: _keyCard
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2855258867410076282, guid: 4ea483f0e4d4a494cbed0bb1ce70ce40, type: 3}
       propertyPath: m_Mesh

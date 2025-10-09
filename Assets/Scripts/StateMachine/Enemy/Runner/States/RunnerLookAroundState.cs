@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RunnerLookAroundState: RunnerState
@@ -10,7 +9,6 @@ public class RunnerLookAroundState: RunnerState
     private float _rotationAngle = 60f;
     private bool _isStateFinished = false;
     public int RotationSpeed => Data.RotationSpeed;
-    public Transform VisibleTarget => EnemyInstance.EnemyVision.VisibleTarget;
     
     public RunnerLookAroundState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
 
@@ -21,10 +19,6 @@ public class RunnerLookAroundState: RunnerState
 
     public override void Update()
     {
-        if (VisibleTarget is not null)
-        {
-            StateSwitcher.SwitchState<RunnerFollowState>();
-        }
     }
 
     public override void Exit()
