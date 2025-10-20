@@ -17,10 +17,9 @@ public class RunnerPatrolState : RunnerState
         MoveToTarget();
     }
 
-
     public override void Update()
     {
-        if (Transform.position.IsEnoughClose(_targetPosition, Data.MinDistanceToTarget))
+        if (Vector3.Distance(Transform.position, _targetPosition) <= Data.MinDistanceToTarget) // Используем Data.MinDistanceToTarget
         {
             Stop();
             StateSwitcher.SwitchState<RunnerWaitingState>();

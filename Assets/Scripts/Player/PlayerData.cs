@@ -15,6 +15,7 @@ public class PlayerData : ScriptableObject
         {
             if (value >= 0 && value <= 15)
                 _speed = value;
+            
             else
                 throw new ArgumentOutOfRangeException(nameof(_speed));
         }

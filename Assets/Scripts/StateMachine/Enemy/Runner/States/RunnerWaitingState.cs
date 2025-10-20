@@ -12,6 +12,7 @@ public class RunnerWaitingState : RunnerState
     public override void Enter()
     {
         _timerCount = 0;
+        // RunnerStateMachine управляет подпиской в SwitchState
     }
 
     public override void Update()
@@ -27,6 +28,7 @@ public class RunnerWaitingState : RunnerState
     public override void Exit()
     {
         SetNextWaypoint();
+        // RunnerStateMachine управляет подпиской в SwitchState
     }
     
     private void SetNextWaypoint()
