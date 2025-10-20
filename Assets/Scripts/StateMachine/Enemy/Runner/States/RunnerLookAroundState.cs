@@ -19,25 +19,18 @@ public class RunnerLookAroundState: RunnerState
 
     public override void Update()
     {
-        // Нет необходимости в Update, вся логика в корутинах.
-        // RunnerStateMachine переключит состояние при событиях PlayerSpotted/PlayerAlerted.
     }
 
     public override void Exit()
     {
-        // Очень важно остановить ВСЕ корутины при выходе из состояния
         StopLookAroundCoroutine();
-        StopTimerRoutine();
-        // Сбрасываем флаг, на всякий случай, если состояние будет повторно использоваться
-        _isStateFinished = false;
     }
 
     private IEnumerator LookAroundRoutine()
     {
-        StartTimerRoutine(); // Запускаем таймер поиска
+        StartTimerRoutine();
         Quaternion originalRotation = EnemyInstance.Transform.rotation;
         
-        // Основной цикл поворотов
         while (!_isStateFinished)
         {
             Quaternion leftRotation = Quaternion.Euler(0, -_rotationAngle, 0) * originalRotation;
@@ -50,17 +43,12 @@ public class RunnerLookAroundState: RunnerState
             yield return _lookAroundDelay;
         }
 
-        // Цикл завершён (по таймеру или ручной остановке через _isStateFinished)
-        // Останавливаем таймер (на всякий случай, хотя он уже должен был завершиться)
-        StopTimerRoutine();
-        _isStateFinished = false; // Сбрасываем флаг для следующего входа
-        // Переключаемся обратно в патруль
+        _isStateFinished = false;
         StateSwitcher.SwitchState<RunnerPatrolState>();
     }
 
     private IEnumerator RotateTo(Quaternion targetRotation)
     {
-        // Плавный поворот
         while (Quaternion.Angle(EnemyInstance.Transform.rotation, targetRotation) > 0.5f)
         {
             EnemyInstance.Transform.rotation = Quaternion.RotateTowards(
@@ -74,21 +62,19 @@ public class RunnerLookAroundState: RunnerState
     
     private IEnumerator TimerRoutine()
     {
-        // Ждём AlertTime
         yield return new WaitForSeconds(EnemyInstance.Data.AlertTime);
-        // Устанавливаем флаг, чтобы завершить LookAroundRoutine
         _isStateFinished = true;
     }
 
     private void StartLookAroundCoroutine()
     {
-        StopLookAroundCoroutine(); // Останавливаем, если уже запущена
+        StopLookAroundCoroutine();
         _lookAroundRoutine = EnemyInstance.StartCoroutine(LookAroundRoutine());
     }
 
     private void StopLookAroundCoroutine()
     {
-        if (_lookAroundRoutine != null)
+        if (_lookAroundRoutine is not null)
         {
             EnemyInstance.StopCoroutine(_lookAroundRoutine);
             _lookAroundRoutine = null;
@@ -97,7 +83,7 @@ public class RunnerLookAroundState: RunnerState
     
     private void StartTimerRoutine()
     {
-        StopTimerRoutine(); // Останавливаем, если уже запущена
+        StopTimerRoutine();
         _timerAlertRoutine = EnemyInstance.StartCoroutine(TimerRoutine());
     }
 

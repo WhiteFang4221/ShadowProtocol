@@ -1,15 +1,13 @@
-﻿// Убираем подписку из конструктора
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class RunnerStateMachine : StateMachine
 {
     private EnemyVision _enemyVision;
-
     public RunnerStateMachine(Runner runner)
     {
         _enemyVision = runner.EnemyVision;
-
+        _enemyVision.PlayerSpotted += HandlePlayerSpotted;
+        
         States = new List<IState>()
         {
             new RunnerPatrolState(this, runner.Data, runner),
@@ -18,68 +16,13 @@ public class RunnerStateMachine : StateMachine
             new RunnerAttackState(this, runner.Data, runner),
             new RunnerLookAroundState(this, runner.Data, runner),
         };
-
+        
         CurrentState = States[0];
-        // Подписываемся при старте, но с учётом состояния
-        UpdateVisionSubscription();
         CurrentState.Enter();
     }
 
-    ~RunnerStateMachine()
+    private void HandlePlayerSpotted()
     {
-        if (_enemyVision != null)
-        {
-            UnsubscribeFromVisionEvents();
-        }
+        SwitchState<RunnerFollowState>();
     }
-
-    private void UpdateVisionSubscription()
-    {
-        UnsubscribeFromVisionEvents(); // Всегда отписываемся
-
-        // Подписываемся в зависимости от текущего состояния
-        if (CurrentState is RunnerPatrolState || CurrentState is RunnerWaitingState)
-        {
-            // Не подписываемся
-        }
-        else // Follow, LookAround, Attack
-        {
-            SubscribeToVisionEvents();
-        }
-    }
-
-    private void SubscribeToVisionEvents()
-    {
-        _enemyVision.PlayerSpotted += HandlePlayerSpotted;
-        _enemyVision.PlayerAlerted += HandlePlayerAlerted;
-        _enemyVision.PlayerLost += HandlePlayerLost;
-    }
-
-    private void UnsubscribeFromVisionEvents()
-    {
-        _enemyVision.PlayerSpotted -= HandlePlayerSpotted;
-        _enemyVision.PlayerAlerted -= HandlePlayerAlerted;
-        _enemyVision.PlayerLost -= HandlePlayerLost;
-    }
-
-    public void SwitchState<State>()
-    {
-        IState state = States.Find(s => s is State);
-        if (state == null) return;
-
-        CurrentState.Exit();
-        // Отписываемся от старого состояния
-        UpdateVisionSubscription();
-
-        CurrentState = state;
-
-        // Подписываемся на новое состояние
-        UpdateVisionSubscription();
-
-        CurrentState.Enter();
-    }
-
-    private void HandlePlayerSpotted() { SwitchState<RunnerFollowState>(); }
-    private void HandlePlayerAlerted() { SwitchState<RunnerLookAroundState>(); }
-    private void HandlePlayerLost() { SwitchState<RunnerLookAroundState>(); }
 }
