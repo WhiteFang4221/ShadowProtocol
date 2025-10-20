@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class RunnerStateMachine : StateMachine
 {
     private EnemyVision _enemyVision;
+
     public RunnerStateMachine(Runner runner)
     {
-        _enemyVision = runner.EnemyVision;
-        _enemyVision.PlayerSpotted += HandlePlayerSpotted;
-        
         States = new List<IState>()
         {
             new RunnerPatrolState(this, runner.Data, runner),
@@ -16,13 +15,8 @@ public class RunnerStateMachine : StateMachine
             new RunnerAttackState(this, runner.Data, runner),
             new RunnerLookAroundState(this, runner.Data, runner),
         };
-        
+
         CurrentState = States[0];
         CurrentState.Enter();
-    }
-
-    private void HandlePlayerSpotted()
-    {
-        SwitchState<RunnerFollowState>();
     }
 }

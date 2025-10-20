@@ -32,4 +32,5 @@ public class Runner : Enemy
     {
         _stateMachine.Update();
     }
+    
 }
