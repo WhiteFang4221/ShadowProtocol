@@ -22,7 +22,7 @@ public class FieldOfView : MonoBehaviour
         return isInRadius && isInAngle && hasLineOfSight;
     }
 
-    public bool IsPlayerInNearestZone()
+    /*public bool IsPlayerInNearestZone()
     {
         Vector3 dirToPlayer = (_playerPosition.Transform.position - transform.position).normalized;
         float distanceToPlayer = Vector3.Distance(transform.position, _playerPosition.Transform.position);
@@ -30,5 +30,5 @@ public class FieldOfView : MonoBehaviour
         bool hasLineOfSight = !Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, _enemyData.ObstacleMask);
 
         return isInRadius && hasLineOfSight;
-    }
+    }*/
 }

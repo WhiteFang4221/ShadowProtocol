@@ -7,7 +7,7 @@ public class RunnerAttackState : RunnerState
 
     public override void Enter()
     {
-        Debug.Log("Атакую");
+        
     }
 
     public override void Update()

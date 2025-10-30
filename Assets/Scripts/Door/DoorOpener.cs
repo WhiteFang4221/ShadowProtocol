@@ -7,7 +7,6 @@ public class DoorOpener : MonoBehaviour
     private const float OpenSpeed = 8f;
     private const float OpenDistance = 1f;
     
-    // [SerializeField] private NavMeshObstacle _obstacle;
     [SerializeField] private KeyCard _keyCard;
     [SerializeField] private DoorDetector _doorDetector;
     [SerializeField] private Rigidbody _leftDoorRigidbody;
@@ -87,8 +86,6 @@ public class DoorOpener : MonoBehaviour
     
     private IEnumerator OpenDoorRoutine()
     {
-        // _obstacle.carving = false;
-        
         while(Vector3.Distance(_leftDoorRigidbody.position, _leftTargetPos) > 0.01f || Vector3.Distance(_rightDoorRigidbody.position, _rightTargetPos) > 0.01f)
         {
             _leftDoorRigidbody.MovePosition(Vector3.MoveTowards(_leftDoorRigidbody.position, _leftTargetPos,
@@ -101,8 +98,6 @@ public class DoorOpener : MonoBehaviour
 
     private IEnumerator CloseDoorRoutine()
     {
-        // _obstacle.carving = true;
-        
         while (Vector3.Distance(_leftDoorRigidbody.position, _leftDoorStartPos) > 0.01f || Vector3.Distance(_rightDoorRigidbody.position, _rightDoorStartPos) > 0.01f)
         {
             _leftDoorRigidbody.MovePosition(Vector3.MoveTowards(_leftDoorRigidbody.position, _leftDoorStartPos,

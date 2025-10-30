@@ -12,7 +12,6 @@ public abstract class Enemy : MonoBehaviour
     
     private NavMeshAgent _meshAgent;
     private Transform _transform;
-    
     public EnemyVision EnemyVision => _enemyVision;
     public EnemyData Data => _data;
     public Transform Transform => _transform;

@@ -12,7 +12,6 @@ public class DoorDetector : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent(out IDoorEnterable doorAccessable))
         {
-            Debug.Log("Entered door: " + doorAccessable);
             _triggeredObjects.Add(doorAccessable);
         }
     }

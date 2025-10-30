@@ -2,11 +2,8 @@
 
 public class RunnerStateMachine : StateMachine
 {
-    private EnemyVision _enemyVision;
     public RunnerStateMachine(Runner runner)
     {
-        _enemyVision = runner.EnemyVision;
-        _enemyVision.PlayerSpotted += HandlePlayerSpotted;
         
         States = new List<IState>()
         {
@@ -19,10 +16,5 @@ public class RunnerStateMachine : StateMachine
         
         CurrentState = States[0];
         CurrentState.Enter();
-    }
-
-    private void HandlePlayerSpotted()
-    {
-        SwitchState<RunnerFollowState>();
     }
 }
