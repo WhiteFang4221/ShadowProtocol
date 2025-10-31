@@ -8,6 +8,7 @@ public class RunnerStateMachine : StateMachine
         States = new List<IState>()
         {
             new RunnerPatrolState(this, runner.Data, runner),
+            new RunnerSuspiciousState(this, runner.Data, runner),
             new RunnerWaitingState(this, runner.Data, runner),
             new RunnerFollowState(this, runner.Data, runner),
             new RunnerAttackState(this, runner.Data, runner),

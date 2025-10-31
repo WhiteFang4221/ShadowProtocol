@@ -8,6 +8,7 @@ public class RunnerPatrolState : RunnerState
     public Transform Transform => EnemyInstance.Transform;
     public int CurrentWaypointIndex => EnemyInstance.CurrentWaypoint;
     public NavMeshAgent Agent => EnemyInstance.Agent;
+    
 
     public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data,
         enemy)
@@ -18,7 +19,9 @@ public class RunnerPatrolState : RunnerState
     public override void Enter()
     {
         MoveToTarget();
+        EnemyInstance.EnemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
     }
+    
 
 
     public override void Update()
@@ -30,8 +33,16 @@ public class RunnerPatrolState : RunnerState
         }
     }
 
-    public override void Exit(){}
+    public override void Exit()
+    {
+        EnemyInstance.EnemyVision.OnPlayerFirstSpotted -= OnPlayerSpotted;
+    }
 
+    private void OnPlayerSpotted()
+    {
+        StateSwitcher.SwitchState<RunnerSuspiciousState>();
+    }
+    
     private void MoveToTarget()
     {
         Agent.speed = Data.Speed;
@@ -49,4 +60,5 @@ public class RunnerPatrolState : RunnerState
     {
         _targetPosition = new Vector3(Waypoints[CurrentWaypointIndex].Transform.position.x, Transform.position.y, Waypoints[CurrentWaypointIndex].Transform.position.z);
     }
+    
 }
