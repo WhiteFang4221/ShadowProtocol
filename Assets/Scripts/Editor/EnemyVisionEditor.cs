@@ -1,4 +1,3 @@
-using Reflex.Attributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,28 +6,41 @@ public class EnemyVisionEditor : Editor
 {
     private void OnSceneGUI()
     {
-        EnemyVision enemyVision = (EnemyVision)target;
-        EnemyData data = enemyVision.Data;
-        if (data == null)
+        EnemyVision vision = (EnemyVision)target;
+        if (vision == null || vision.Data == null)
             return;
-        Handles.color = Color.white;
-        Handles.DrawWireArc(enemyVision.transform.position, Vector3.up, Vector3.forward, 360, data.ViewRadius);
-        Handles.DrawWireArc(enemyVision.transform.position, Vector3.up, Vector3.forward, 360, data.NearbyRadius);
-        Vector3 viewAngleA = DirFromAngle(-data.ViewAngle / 2, enemyVision);
-        Vector3 viewAngleB = DirFromAngle(data.ViewAngle / 2, enemyVision);
-        
-        Handles.DrawLine(enemyVision.transform.position, enemyVision.transform.position + viewAngleA * data.ViewRadius);
-        Handles.DrawLine(enemyVision.transform.position, enemyVision.transform.position + viewAngleB * data.ViewRadius);
-        Handles.color = Color.red;
-        
-        if (enemyVision.VisibleTarget is not null)
-            Handles.DrawLine(enemyVision.transform.position, enemyVision.VisibleTarget.position);
-    }
-    
-    private Vector3 DirFromAngle(float angleInDegrees, EnemyVision vision)
-    {
-        angleInDegrees += vision.transform.eulerAngles.y;
-        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+
+        EnemyData data = vision.Data;
+        Transform enemyTransform = vision.transform;
+
+        float viewRadius = data.ViewRadius;
+        float viewAngle = data.ViewAngle; // например, 90°
+        Vector3 origin = enemyTransform.position + Vector3.up * 0.02f;
+        Vector3 forward = enemyTransform.forward;
+
+        // === Центрированный конус ===
+        Vector3 arcFrom = Quaternion.AngleAxis(-viewAngle / 2f, Vector3.up) * forward;
+        Handles.color = new Color(0.2f, 0.6f, 1f, 0.25f);
+        Handles.DrawSolidArc(origin, Vector3.up, arcFrom, viewAngle, viewRadius);
+
+        // === Границы (они уже правильные) ===
+        Handles.color = new Color(0.2f, 0.6f, 1f, 0.6f);
+        Vector3 leftDir  = Quaternion.AngleAxis(-viewAngle / 2f, Vector3.up) * forward;
+        Vector3 rightDir = Quaternion.AngleAxis( viewAngle / 2f, Vector3.up) * forward;
+
+        Handles.DrawLine(origin, origin + leftDir * viewRadius);
+        Handles.DrawLine(origin, origin + rightDir * viewRadius);
+
+        // === Линия к игроку (опционально) ===
+        if (vision.IsCurrentlySeeing)
+        {
+            Handles.color = new Color(0f, 1f, 0f, 0.8f);
+            Handles.DrawLine(origin, vision.LastKnownPosition);
+        }
+        else if (vision.IsAlerted)
+        {
+            Handles.color = new Color(1f, 0.7f, 0.2f, 0.6f);
+            Handles.DrawLine(origin, vision.LastKnownPosition);
+        }
     }
 }
-

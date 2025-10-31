@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Runner : Enemy
@@ -15,9 +14,7 @@ public class Runner : Enemy
     public void SetCurrentWaypoint(int waypoint)
     {
         if (waypoint >= _patrolPoints.Waypoints.Count || waypoint < 0)
-        {
             throw new ArgumentOutOfRangeException(nameof(waypoint));
-        }
         
         _currentWaypoint = waypoint;
     }
