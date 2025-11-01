@@ -8,6 +8,7 @@ public class RunnerWaitingState : RunnerState
     public override void Enter()
     {
         _timerCount = 0;
+        EnemyInstance.EnemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
     }
 
     public override void Update()
@@ -21,7 +22,16 @@ public class RunnerWaitingState : RunnerState
         _timerCount += Time.deltaTime;
     }
 
-    public override void Exit(){}
+    public override void Exit()
+    {
+        EnemyInstance.EnemyVision.OnPlayerFirstSpotted -= OnPlayerSpotted;
+    }
+    
+    
+    private void OnPlayerSpotted()
+    {
+        StateSwitcher.SwitchState<RunnerSuspiciousState>();
+    }
     
     private void SetNextWaypoint()
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -17,11 +16,19 @@ public class EnemyVision : MonoBehaviour
     private float _lastSeenTime;
     private float _lastCheckTime;
     private float _nextCheckTime;
+    private bool _isDecaySuspicion = true;
 
+
+    public IPlayerPosition PlayerPosition => _playerPosition;
     public bool IsCurrentlySeeing => _isCurrentlySeeing;
     public bool IsAlerted => Time.time - _lastSeenTime < _enemyData.AlertDuration;
     public Vector3 LastKnownPosition => _lastKnownPosition;
     public float SuspicionLevel => Mathf.Clamp01(_suspicionLevel) * 100f;
+    public bool IsDecaySuspicion
+    {
+        get => _isDecaySuspicion;
+        set => _isDecaySuspicion = value;
+    }
     
     public event Action OnPlayerFirstSpotted;
     
@@ -57,7 +64,10 @@ public class EnemyVision : MonoBehaviour
         }
         else
         {
-            _suspicionLevel -= _enemyData.SuspicionDecayPerSecond * timeSinceLastCheck / 100f;
+            if (IsDecaySuspicion)
+            {
+                _suspicionLevel -= _enemyData.SuspicionDecayPerSecond * timeSinceLastCheck / 100f;
+            }
         }
         
         if (_isCurrentlySeeing && _wasSeeingPlayer == false)

@@ -10,14 +10,11 @@ public class RunnerPatrolState : RunnerState
     public NavMeshAgent Agent => EnemyInstance.Agent;
     
 
-    public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data,
-        enemy)
-    {
-        
-    }
+    public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
     
     public override void Enter()
     {
+        Debug.Log("Патрулирую");
         MoveToTarget();
         EnemyInstance.EnemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
     }
