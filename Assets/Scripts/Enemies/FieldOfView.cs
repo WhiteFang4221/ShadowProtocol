@@ -7,7 +7,6 @@ public class FieldOfView : MonoBehaviour
     [Inject] private IPlayerPosition _playerPosition;
 
     public float ViewRadius => _enemyData.ViewRadius;
-    public float NearbyRadius => _enemyData.NearbyRadius;
     public float HalfViewAngle => _enemyData.ViewAngle / 2f;
     
     public bool IsPlayerInField()
@@ -31,6 +30,4 @@ public class FieldOfView : MonoBehaviour
 
         return isInRadius && hasLineOfSight;
     }*/
-    
-    
 }

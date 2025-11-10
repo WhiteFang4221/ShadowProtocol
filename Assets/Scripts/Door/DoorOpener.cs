@@ -32,6 +32,12 @@ public class DoorOpener : MonoBehaviour
     {
         if (_doorDetector.TriggeredObjects.Count > 0)
         {
+            if (_keyCard == KeyCard.None)
+            {
+                OpenDoor();
+                return;
+            }
+            
             if (IsHasKeyCard())
             {
                 OpenDoor();

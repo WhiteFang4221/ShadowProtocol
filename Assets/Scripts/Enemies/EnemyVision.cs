@@ -9,7 +9,7 @@ public class EnemyVision : MonoBehaviour
     [Inject] private IPlayerPosition _playerPosition;
     public EnemyData Data => _enemyData;
 
-    private float _suspicionLevel = 0f;
+    [SerializeField] private float _suspicionLevel = 0f;
     private bool _isCurrentlySeeing = false;
     private bool _wasSeeingPlayer = false;
     private Vector3 _lastKnownPosition;
@@ -23,7 +23,7 @@ public class EnemyVision : MonoBehaviour
     public bool IsCurrentlySeeing => _isCurrentlySeeing;
     public bool IsAlerted => Time.time - _lastSeenTime < _enemyData.AlertDuration;
     public Vector3 LastKnownPosition => _lastKnownPosition;
-    public float SuspicionLevel => Mathf.Clamp01(_suspicionLevel) * 100f;
+    public float SuspicionLevel => _suspicionLevel * 100f;
     public bool IsDecaySuspicion
     {
         get => _isDecaySuspicion;
@@ -55,10 +55,22 @@ public class EnemyVision : MonoBehaviour
         if (_isCurrentlySeeing)
         {
             float distance = Vector3.Distance(transform.position, _playerPosition.Transform.position);
-            float distanceFactor = 1f - Mathf.Clamp01(distance / _enemyData.ViewRadius);
+            // Вычисляем половину радиуса
+            float halfRadius = _enemyData.ViewRadius / 2f;
+
+            float distanceFactor = _enemyData.ViewRadius > 0 ? 1f - Mathf.Clamp01(distance / _enemyData.ViewRadius) : 0;
+
+            // Вычисляем базовый рост
             float growth = _enemyData.BaseSuspicionPerSecond * (1f + distanceFactor) * timeSinceLastCheck / 100f;
+
+            // Если игрок ближе половины радиуса - ускоряем в 4 раза
+            if (distance < halfRadius)
+            {
+                growth *= 4f;
+            }
+
             _suspicionLevel += growth;
-            
+
             _lastKnownPosition = _playerPosition.Transform.position;
             _lastSeenTime = Time.time;
         }
@@ -66,6 +78,7 @@ public class EnemyVision : MonoBehaviour
         {
             if (IsDecaySuspicion)
             {
+                // Используем значение из EnemyData
                 _suspicionLevel -= _enemyData.SuspicionDecayPerSecond * timeSinceLastCheck / 100f;
             }
         }
@@ -77,6 +90,7 @@ public class EnemyVision : MonoBehaviour
         
         _wasSeeingPlayer = _isCurrentlySeeing;
         _suspicionLevel = Mathf.Clamp01(_suspicionLevel);
+        _lastCheckTime = Time.time;
     }
 }
 

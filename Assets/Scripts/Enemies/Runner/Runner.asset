@@ -27,7 +27,6 @@ MonoBehaviour:
   _nearbyRadius: 3
   _alertTime: 5
   _alertDuration: 5
-  _suspicionTime: 2
-  _baseSuspicionPerSecond: 2
-  _suspicionDecayPerSecond: 10
-  _suspicionToSearch: 60
+  _baseSuspicionPerSecond: 30
+  _suspicionDecayPerSecond: 25
+  _suspicionToSearch: 80
