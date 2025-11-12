@@ -81,7 +81,7 @@ public class RunnerLookAroundState : RunnerState
     private void UpdateLookPhase()
     {
         // Плавно поворачиваемся к целевому смещению
-        _currentLookOffset = Mathf.MoveTowards(_currentLookOffset, _targetLookOffset, Data.TurnSpeed * Time.deltaTime);
+        _currentLookOffset = Mathf.MoveTowards(_currentLookOffset, _targetLookOffset, Data.RotationSpeed * Time.deltaTime);
 
         // Применяем поворот
         float targetAngle = _initialAngle + _currentLookOffset;

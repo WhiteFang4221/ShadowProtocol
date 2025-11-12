@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,33 +7,41 @@ public class RunnerAlertState : RunnerState
     private Transform _transform => EnemyInstance.Transform;
     private EnemyVision _enemyVision => EnemyInstance.EnemyVision;
 
-    private float _remainingAlertTime; // сколько времени осталось "помнить" точную позицию
-    public RunnerAlertState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
+    private float _remainingAlertTime;
+    private Vector3 _currentChaseTarget; // Текущая цель, за которой гонимся
+
+    public RunnerAlertState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy) { }
 
     public override void Enter()
     {
-        _agent.speed = Data.FollowSpeed;
-       Debug.Log("Бегу за игроком");
-       
-       UpdateTargetDestination();
+        Debug.Log("В ТРЕВОГЕ!");
+        _agent.isStopped = false;
+        _agent.updateRotation = true; // разрешаем поворот при движении
 
-       // Подозрение не падает в тревоге
-       _enemyVision.IsDecaySuspicion = true;
+        // Начинаем преследование текущей позиции игрока
+        _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
+        _agent.SetDestination(_currentChaseTarget);
 
-       // Устанавливаем таймер
-       _remainingAlertTime = 3f;
+        // Подозрение не падает в тревоге
+        _enemyVision.IsDecaySuspicion = true;
+
+        // Устанавливаем таймер
+        _remainingAlertTime = Data.TimeSeePlayerAfterLoss; // Используем значение из Data
     }
 
     public override void Update()
     {
         if (_enemyVision.IsCurrentlySeeing)
         {
-            UpdateTargetDestination();
-            _remainingAlertTime = 3f;
+            // Обновляем цель на текущую позицию игрока
+            _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
+            _agent.SetDestination(_currentChaseTarget);
+            _remainingAlertTime = Data.TimeSeePlayerAfterLoss; // Сбрасываем таймер
         }
         else
         {
-            // Если не видим - уменьшаем таймер
+            // Не обновляем цель, продолжаем идти к _currentChaseTarget
+            // Уменьшаем таймер
             _remainingAlertTime -= Time.deltaTime;
 
             // Если таймер истёк - переходим к поиску
@@ -43,27 +50,13 @@ public class RunnerAlertState : RunnerState
                 StateSwitcher.SwitchState<RunnerSearchState>();
                 return;
             }
-            // Иначе продолжаем идти к последней известной позиции
-            // Цель уже установлена на _enemyVision.LastKnownPosition в прошлом вызове UpdateTargetDestination
+            // Иначе продолжаем идти к _currentChaseTarget (куда шли, когда игрок исчез)
         }
     }
-
-
 
     public override void Exit()
     {
         _agent.isStopped = false; // на всякий случай
-        _enemyVision.IsDecaySuspicion = true; 
+        _enemyVision.IsDecaySuspicion = true; // возвращаем к норме
     }
-
-    private void UpdateTargetDestination()
-    {
-        // Цель - текущая позиция игрока, если видим, иначе - последняя известная
-        Vector3 targetPos = _enemyVision.IsCurrentlySeeing 
-            ? _enemyVision.PlayerPosition.Transform.position 
-            : _enemyVision.LastKnownPosition;
-
-        _agent.SetDestination(targetPos);
-    }
-    
 }

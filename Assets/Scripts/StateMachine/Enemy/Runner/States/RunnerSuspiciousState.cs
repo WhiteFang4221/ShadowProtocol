@@ -60,7 +60,7 @@ public class RunnerSuspiciousState: RunnerState
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, Data.TurnSpeed * Time.deltaTime);
+            _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, Data.RotationSpeed * Time.deltaTime);
         }
     }
 }

@@ -21,9 +21,9 @@ public class RunnerSearchState: RunnerState
        
 
         _agent.isStopped = false;
-        _agent.updateRotation = true; // разрешаем поворот при движении
+        _agent.updateRotation = true; 
         _agent.SetDestination(EnemyInstance.EnemyVision.LastKnownPosition);
-        _enemyVision.IsDecaySuspicion = false; // останавливаем падение подозрения
+        _enemyVision.IsDecaySuspicion = false;
         _hasReachedTarget = false;
     }
 
@@ -57,11 +57,5 @@ public class RunnerSearchState: RunnerState
     {
         _agent.isStopped = false; 
         _enemyVision.IsDecaySuspicion = true;
-    }
-
-    private void MoveToTarget()
-    {
-        
-        
     }
 }
