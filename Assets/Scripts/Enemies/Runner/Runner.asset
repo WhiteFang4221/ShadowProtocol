@@ -15,18 +15,15 @@ MonoBehaviour:
   _speed: 5
   _followSpeed: 7
   _rotationSpeed: 90
-  _turnSpeed: 5
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 192
-  _targetMask:
-    serializedVersion: 2
-    m_Bits: 256
   _viewAngle: 92
   _viewRadius: 10
   _nearbyRadius: 3
-  _alertTime: 5
   _alertDuration: 5
+  _timeSeePlayerAfterLoss: 2
   _baseSuspicionPerSecond: 30
   _suspicionDecayPerSecond: 25
   _suspicionToSearch: 80
+  DistanceInfluenceFactor: 15

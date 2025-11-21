@@ -4541,7 +4541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1219794462050054362, guid: 89c53285b3268bd4492f08979dbda8ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.105
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1219794462050054362, guid: 89c53285b3268bd4492f08979dbda8ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6011,6 +6011,10 @@ PrefabInstance:
     - target: {fileID: 1647510547340900102, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: <AlertTime>k__BackingField
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2979281570186498112, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_LocalPosition.x
