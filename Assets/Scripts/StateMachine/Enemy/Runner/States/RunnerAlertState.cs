@@ -14,14 +14,11 @@ public class RunnerAlertState : RunnerState
     public override void Enter()
     {
         Debug.Log("В ТРЕВОГЕ!");
-        _agent.isStopped = false;
-        _agent.updateRotation = true; 
         
+        _agent.isStopped = false;
         _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
         _agent.SetDestination(_currentChaseTarget);
-        
         _enemyVision.IsDecaySuspicion = true;
-        
         _remainingAlertTime = Data.TimeSeePlayerAfterLoss; 
     }
 

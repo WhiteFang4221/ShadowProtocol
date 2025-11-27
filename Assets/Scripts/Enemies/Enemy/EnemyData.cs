@@ -21,14 +21,14 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _viewRadius = 10f;
     [SerializeField] private float _nearbyRadius = 3f;
     
+    [Header("Suspicion")]
     [SerializeField] private float _alertDuration = 5f;
     [SerializeField] private float _timeSeePlayerAfterLoss = 5f;
     [SerializeField] private float _baseSuspicionPerSecond = 20f;
     [SerializeField] private float _suspicionDecayPerSecond = 25f;
+    [SerializeField] private float _suspicionToSearch = 40f;
     
-    [SerializeField] private float _suspicionToSearch = 50f;
-    
-    public float DistanceInfluenceFactor = 15f;
+    public float DistanceInfluenceFactor { get; private set; } = 15f;
     public float Speed { get => _speed; set => _speed = Mathf.Clamp(value, 0, 5); }
     public float FollowSpeed { get => _followSpeed; set => _followSpeed = Mathf.Clamp(value, 5, 10); }
     public int RotationSpeed { get => _rotationSpeed; set => _rotationSpeed = Mathf.Clamp(value, 1, 90); }

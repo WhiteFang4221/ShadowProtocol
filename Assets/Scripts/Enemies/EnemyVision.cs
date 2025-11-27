@@ -18,7 +18,6 @@ public class EnemyVision : MonoBehaviour
     private float _nextCheckTime;
     private bool _isDecaySuspicion = true;
 
-
     public IPlayerPosition PlayerPosition => _playerPosition;
     public bool IsCurrentlySeeing => _isCurrentlySeeing;
     public bool IsAlerted => Time.time - _lastSeenTime < _enemyData.AlertDuration;

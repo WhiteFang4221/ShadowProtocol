@@ -15,6 +15,7 @@ public class RunnerPatrolState : RunnerState
     public override void Enter()
     {
         Debug.Log("Патрулирую");
+        Agent.speed = Data.Speed;
         MoveToTarget();
         EnemyInstance.EnemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
     }
@@ -42,7 +43,6 @@ public class RunnerPatrolState : RunnerState
     
     private void MoveToTarget()
     {
-        Agent.speed = Data.Speed;
         Agent.isStopped = false;
         SetTargetPosition();
         Agent.SetDestination(_targetPosition);
