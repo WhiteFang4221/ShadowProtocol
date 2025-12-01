@@ -7,7 +7,6 @@ public class EnemyVision : MonoBehaviour
     [SerializeField] private FieldOfView _fov;
     [SerializeField] private EnemyData _enemyData;
     [Inject] private IPlayerPosition _playerPosition;
-    public EnemyData Data => _enemyData;
 
     [SerializeField] private float _suspicionLevel = 0f;
     private bool _isCurrentlySeeing = false;
@@ -18,6 +17,7 @@ public class EnemyVision : MonoBehaviour
     private float _nextCheckTime;
     private bool _isDecaySuspicion = true;
 
+    public EnemyData Data => _enemyData;
     public IPlayerPosition PlayerPosition => _playerPosition;
     public bool IsCurrentlySeeing => _isCurrentlySeeing;
     public bool IsAlerted => Time.time - _lastSeenTime < _enemyData.AlertDuration;
