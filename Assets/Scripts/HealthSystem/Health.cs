@@ -41,9 +41,6 @@ public abstract class Health : IHealth
 
     protected void Change(int amount)
     {
-        if (amount == 0)
-            throw new ArgumentOutOfRangeException(nameof(amount));
-        
         int oldHealth = _currentHealth;
         _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, _healthData.MaxHealth);
 
@@ -53,10 +50,12 @@ public abstract class Health : IHealth
             Die();
         }
 
-        if (oldHealth != _currentHealth) // Только если значение реально изменилось
+        if (oldHealth != _currentHealth) 
         {
             OnChanged?.Invoke();
         }
+        
+        Debug.Log ("Здоровье объекта: " + _currentHealth);
     }
 
     protected void Die()

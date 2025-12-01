@@ -3,13 +3,20 @@ using UnityEngine;
 
 public class Runner : Enemy
 {
+    [SerializeField] private HealthData healthData;
     [SerializeField] private PatrolPoints _patrolPoints;
-    
+
+    private EnemyHealth _health;
     private int _currentWaypoint;
     private RunnerStateMachine _stateMachine;
     
     public PatrolPoints PatrolPoints => _patrolPoints;
     public int CurrentWaypoint => _currentWaypoint;
+
+    private void Awake()
+    {
+        _health = new EnemyHealth(healthData);
+    }
 
     public void SetCurrentWaypoint(int waypoint)
     {

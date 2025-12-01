@@ -5,8 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
 {
+    [SerializeField] private HealthData _healthData;
     [SerializeField] private PlayerData _data;
     
+    private PlayerHealth _health;
     private PlayerStateMachine _stateMachine;
     private Rigidbody _rigidbody;
     [Inject] private GameInput _input;
@@ -20,6 +22,10 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
     
     private void Awake()
     {
+        _health = new PlayerHealth(_healthData);
+        _health.OnTakeDamage += () => 
+        _health.OnDeath += () => 
+        
         _stateMachine = new PlayerStateMachine(this);
         _rigidbody = GetComponent<Rigidbody>();
         _input.Enable();

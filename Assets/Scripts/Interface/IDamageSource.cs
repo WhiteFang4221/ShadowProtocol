@@ -1,4 +1,9 @@
-﻿public interface IDamageSource
+﻿using UnityEngine;
+
+public interface IDamageSource
 {
-    void ApplyDamage(IHealth target, int damage);
+    public int Damage { get; }
+    public IHealth Owner { get; }
+    
+    void ProcessDamage(IHealth target);
 }
