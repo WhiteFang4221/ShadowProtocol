@@ -23,8 +23,6 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
     private void Awake()
     {
         _health = new PlayerHealth(_healthData);
-        _health.OnTakeDamage += () => 
-        _health.OnDeath += () => 
         
         _stateMachine = new PlayerStateMachine(this);
         _rigidbody = GetComponent<Rigidbody>();
@@ -42,4 +40,5 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
         _stateMachine.Update();
     }
 
+    
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public static class DamageSystem
+public static class DamageHandler
 {
     public static void ApplyDamage(IDamageSource source, IHealth target)
     {

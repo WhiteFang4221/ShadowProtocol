@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DamageSource : MonoBehaviour, IDamageSource
 {
@@ -13,6 +12,6 @@ public class DamageSource : MonoBehaviour, IDamageSource
 
     public void ProcessDamage(IHealth target)
     {
-        DamageSystem.ApplyDamage(this, target);
+        DamageHandler.ApplyDamage(this, target);
     }
 }
