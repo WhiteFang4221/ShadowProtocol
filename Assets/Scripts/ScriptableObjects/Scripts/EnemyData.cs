@@ -6,13 +6,13 @@ using UnityEngine.Serialization;
 public class EnemyData : ScriptableObject
 {
     public readonly float MinDistanceToTarget = 0.1f;
-    public readonly float ViewDelay = 0.1f;
+    public readonly float ViewDelay = 0.01f;
     public readonly float AlertThreshold = 100f;
     
     [Header("Movement")]
-    [SerializeField, Range(0, 5)] private float _speed = 3.5f;
-    [SerializeField, Range(5, 10)] private float _followSpeed = 7f;
-    [SerializeField, Range(1, 90)] private int _rotationSpeed = 5;
+    [SerializeField, Range(0, 50)] private float _speed = 3.5f;
+    [SerializeField, Range(5, 100)] private float _followSpeed = 7f;
+    [SerializeField, Range(1, 360)] private int _rotationSpeed = 5;
     private float _timeToWaitPatrolPoint;
     
     [Header("Vision")]
@@ -25,7 +25,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _alertDuration = 5f;
     [SerializeField] private float _timeSeePlayerAfterLoss = 5f;
     [SerializeField] private float _baseSuspicionPerSecond = 20f;
-    [SerializeField] private float _suspicionDecayPerSecond = 25f;
+    [SerializeField] private float _suspicionDecayPerSecond = 10f;
     [SerializeField] private float _suspicionToSearch = 40f;
     
     public float DistanceInfluenceFactor { get; private set; } = 15f;

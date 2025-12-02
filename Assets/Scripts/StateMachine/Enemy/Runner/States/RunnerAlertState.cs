@@ -16,6 +16,7 @@ public class RunnerAlertState : RunnerState
         Debug.Log("В ТРЕВОГЕ!");
         
         _agent.isStopped = false;
+        _agent.updateRotation = false;
         _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
         _agent.SetDestination(_currentChaseTarget);
         _enemyVision.IsDecaySuspicion = true;
@@ -25,7 +26,6 @@ public class RunnerAlertState : RunnerState
     public override void Update()
     {
         _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
-        
         _agent.SetDestination(_currentChaseTarget);
         
         if (_enemyVision.IsCurrentlySeeing)
@@ -38,7 +38,7 @@ public class RunnerAlertState : RunnerState
             
             if (_remainingAlertTime <= 0)
             {
-                StateSwitcher.SwitchState<RunnerSearchState>();
+                StateSwitcher.SwitchState<RunnerLookAroundState>();
             }
         }
     }

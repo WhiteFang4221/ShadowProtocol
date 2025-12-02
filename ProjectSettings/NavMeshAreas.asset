@@ -6,14 +6,12 @@ NavMeshProjectSettings:
   serializedVersion: 2
   areas:
   - name: Walkable
-    cost: 1
+    cost: 10
   - name: Not Walkable
     cost: 1
   - name: Jump
     cost: 2
-  - name: AvoidArea
-    cost: 5
-  - name: 
+  - name: GoodPath
     cost: 1
   - name: 
     cost: 1
@@ -69,14 +67,16 @@ NavMeshProjectSettings:
     cost: 1
   - name: 
     cost: 1
-  m_LastAgentTypeID: -1372625422
+  - name: 
+    cost: 1
+  m_LastAgentTypeID: -334000983
   m_Settings:
   - serializedVersion: 3
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.4
     agentHeight: 1
     agentSlope: 0
-    agentClimb: 0.4
+    agentClimb: 1
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2

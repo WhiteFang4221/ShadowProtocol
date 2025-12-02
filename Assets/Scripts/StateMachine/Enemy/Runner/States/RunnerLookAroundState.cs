@@ -128,6 +128,6 @@ public class RunnerLookAroundState : RunnerState
     public override void Exit()
     {
         _agent.isStopped = false;
-        _agent.updateRotation = true; // возвращаем NavMesh-поворот
+        _agent.updateRotation = true;
     }
 }

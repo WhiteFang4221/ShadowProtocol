@@ -9,13 +9,13 @@ public class EnemyVision : MonoBehaviour
     [Inject] private IPlayerPosition _playerPosition;
 
     [SerializeField] private float _suspicionLevel = 0f;
-    private bool _isCurrentlySeeing = false;
-    private bool _wasSeeingPlayer = false;
+    private bool _isCurrentlySeeing;
+    private bool _wasSeeingPlayer;
     private Vector3 _lastKnownPosition;
     private float _lastSeenTime;
     private float _lastCheckTime;
     private float _nextCheckTime;
-    private bool _isDecaySuspicion = true;
+    private bool _isDecaySuspicion = false;
 
     public EnemyData Data => _enemyData;
     public IPlayerPosition PlayerPosition => _playerPosition;
