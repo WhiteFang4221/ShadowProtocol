@@ -16,7 +16,6 @@ public class RunnerAlertState : RunnerState
         Debug.Log("В ТРЕВОГЕ!");
         
         _agent.isStopped = false;
-        _agent.updateRotation = false;
         _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
         _agent.SetDestination(_currentChaseTarget);
         _enemyVision.IsDecaySuspicion = true;
