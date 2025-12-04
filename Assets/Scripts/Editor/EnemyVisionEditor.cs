@@ -37,10 +37,5 @@ public class EnemyVisionEditor : Editor
             Handles.color = new Color(0f, 1f, 0f, 0.8f);
             Handles.DrawLine(origin, vision.LastKnownPosition);
         }
-        else if (vision.IsAlerted)
-        {
-            Handles.color = new Color(1f, 0.7f, 0.2f, 0.6f);
-            Handles.DrawLine(origin, vision.LastKnownPosition);
-        }
     }
 }

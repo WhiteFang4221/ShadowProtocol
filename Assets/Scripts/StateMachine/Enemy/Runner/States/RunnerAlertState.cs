@@ -27,6 +27,12 @@ public class RunnerAlertState : RunnerState
         _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
         _agent.SetDestination(_currentChaseTarget);
         
+        if (Vector3Extensions.IsEnoughClose(_agent.transform.position, _currentChaseTarget, Data.AttackRange))
+        {
+            StateSwitcher.SwitchState<RunnerAttackState>();
+            return;
+        }
+
         if (_enemyVision.IsCurrentlySeeing)
         {
             _remainingAlertTime = Data.TimeSeePlayerAfterLoss; 

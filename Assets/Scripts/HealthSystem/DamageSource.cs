@@ -7,7 +7,7 @@ public class DamageSource : MonoBehaviour, IDamageSource
 
     private void Awake()
     {
-        Owner = GetComponentInParent<IHealth>();
+        Owner = GetComponentInParent<Runner>()?.GetComponent<IHealth>();
     }
 
     public void ProcessDamage(IHealth target)

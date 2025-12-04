@@ -26,3 +26,4 @@ MonoBehaviour:
   _baseSuspicionPerSecond: 40
   _suspicionDecayPerSecond: 25
   _suspicionToSearch: 50
+  _attackRange: 1.5

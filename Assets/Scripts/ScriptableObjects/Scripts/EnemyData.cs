@@ -28,6 +28,9 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float _suspicionDecayPerSecond = 10f;
     [SerializeField] private float _suspicionToSearch = 40f;
     
+    
+    [SerializeField] private float _attackRange = 1.5f;
+    
     public float DistanceInfluenceFactor { get; private set; } = 15f;
     public float Speed { get => _speed; set => _speed = Mathf.Clamp(value, 0, 5); }
     public float FollowSpeed { get => _followSpeed; set => _followSpeed = Mathf.Clamp(value, 5, 10); }
@@ -36,9 +39,9 @@ public class EnemyData : ScriptableObject
     public LayerMask ObstacleMask => _obstacleMask;
     public float ViewAngle => _viewAngle;
     public float ViewRadius => _viewRadius;
-    public float AlertDuration =>  _alertDuration;
     public float BaseSuspicionPerSecond => _baseSuspicionPerSecond;   
     public float SuspicionDecayPerSecond => _suspicionDecayPerSecond;
     public float SuspicionToSearch => _suspicionToSearch;
     public float TimeSeePlayerAfterLoss => _timeSeePlayerAfterLoss;
+    public float AttackRange => _attackRange;
 }

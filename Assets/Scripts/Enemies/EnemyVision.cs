@@ -20,7 +20,6 @@ public class EnemyVision : MonoBehaviour
     public EnemyData Data => _enemyData;
     public IPlayerPosition PlayerPosition => _playerPosition;
     public bool IsCurrentlySeeing => _isCurrentlySeeing;
-    public bool IsAlerted => Time.time - _lastSeenTime < _enemyData.AlertDuration;
 
     public Vector3 LastKnownPosition
     {

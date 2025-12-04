@@ -11,7 +11,7 @@ public class RunnerLookAroundState : RunnerState
     private float _stateTimer;
     private float _initialWaitTime = 1f;
     private float _lookDuration = 1.5f;
-    private float _turnSpeed = 150f; // degrees per second
+    private float _turnSpeed = 200f;
 
     private float _initialAngle;
     private float _targetAngle;
