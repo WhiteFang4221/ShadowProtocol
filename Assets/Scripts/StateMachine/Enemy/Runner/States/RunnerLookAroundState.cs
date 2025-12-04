@@ -3,125 +3,88 @@ using UnityEngine.AI;
 
 public class RunnerLookAroundState : RunnerState
 {
+    private readonly float _turnAngle = 70;
     private NavMeshAgent _agent => EnemyInstance.Agent;
     private Transform _transform => EnemyInstance.Transform;
     private EnemyVision _enemyVision => EnemyInstance.EnemyVision;
 
-    // Общий таймер осмотра
-    private float _lookAroundTimer;
-    private float _lookAroundTime => 2f; // например, 2f
+    private float _stateTimer;
+    private float _initialWaitTime = 1f;
+    private float _lookDuration = 1.5f;
+    private float _turnSpeed = 150f; // degrees per second
 
-    // Поворот
-    private float _initialAngle; // угол, куда смотрел при входе
-    private float _targetLookOffset; // целевой сдвиг от initialAngle (в градусах)
-    private float _currentLookOffset; // текущий сдвиг от initialAngle (в градусах)
+    private float _initialAngle;
+    private float _targetAngle;
+    private float _currentAngle;
 
-    // Фазы поворота
-    private enum LookPhase { TurnRight, TurnLeft, ReturnCenter };
-    private LookPhase _currentPhase = LookPhase.TurnRight;
+    private enum LookPhase { InitialWait, TurnRight, LookRight, TurnLeft, LookLeft, TurnCenter, LookCenter, Done }
+    private LookPhase _currentPhase;
 
     public RunnerLookAroundState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy)
         : base(stateSwitcher, data, enemy) { }
 
     public override void Enter()
     {
-        Debug.Log("Оглядываюсь...");
         _agent.isStopped = true;
-        _agent.updateRotation = false; // отключаем NavMesh-поворот
+        _agent.updateRotation = false;
 
-        // Сохраняем начальный угол (в градусах)
         _initialAngle = _transform.eulerAngles.y;
+        _currentAngle = _initialAngle;
+        _targetAngle = _initialAngle;
 
-        // Начинаем с поворота вправо
-        _currentPhase = LookPhase.TurnRight;
-        _lookAroundTimer = 0f;
-
-        // Устанавливаем целевой сдвиг для текущей фазы
-        _targetLookOffset = GetTargetOffsetForPhase(_currentPhase);
-        _currentLookOffset = 0f; // начнём с центра
+        _stateTimer = 0f;
+        _currentPhase = LookPhase.InitialWait;
     }
 
     public override void Update()
     {
-        // Если игрок снова появился - срочно реагируем
         if (_enemyVision.IsCurrentlySeeing)
         {
             if (_enemyVision.SuspicionLevel >= Data.AlertThreshold)
-            {
                 StateSwitcher.SwitchState<RunnerAlertState>();
-            }
             else
-            {
                 StateSwitcher.SwitchState<RunnerSuspiciousState>();
-            }
             return;
         }
+        
+        _stateTimer += Time.deltaTime;
 
-        // Если подозрение упало до 0 - возвращаемся к патрулю
-        if (_enemyVision.SuspicionLevel <= 0)
+        switch (_currentPhase)
         {
-            StateSwitcher.SwitchState<RunnerPatrolState>();
-            return;
-        }
+            case LookPhase.InitialWait:
+                LookSide(LookPhase.TurnRight, _turnAngle);
+                break;
 
-        // Обновляем общий таймер осмотра
-        _lookAroundTimer += Time.deltaTime;
-
-        // Обновляем фазу поворота и проверяем, нужно ли переключаться
-        UpdateLookPhase();
-
-        // Если общий таймер истёк - возвращаемся к патрулю
-        if (_lookAroundTimer >= _lookAroundTime)
-        {
-            StateSwitcher.SwitchState<RunnerPatrolState>();
-            return;
-        }
-    }
-
-    private void UpdateLookPhase()
-    {
-        // Плавно поворачиваемся к целевому смещению
-        _currentLookOffset = Mathf.MoveTowards(_currentLookOffset, _targetLookOffset, Data.RotationSpeed * Time.deltaTime);
-
-        // Применяем поворот
-        float targetAngle = _initialAngle + _currentLookOffset;
-        _transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-
-        // Проверяем, достигли ли целевого смещения для текущей фазы
-        if (Mathf.Approximately(_currentLookOffset, _targetLookOffset))
-        {
-            // Переходим к следующей фазе
-            switch (_currentPhase)
-            {
-                case LookPhase.TurnRight:
-                    _currentPhase = LookPhase.TurnLeft;
-                    break;
-                case LookPhase.TurnLeft:
-                    _currentPhase = LookPhase.ReturnCenter;
-                    break;
-                case LookPhase.ReturnCenter:
-                    // Если вернулись в центр, завершаем цикл поворотов
-                    // Переход в другое состояние будет по таймеру _lookAroundTimer
-                    return; // выходим, чтобы не менять _targetLookOffset
-            }
-
-            // Устанавливаем новый целевой сдвиг для следующей фазы
-            _targetLookOffset = GetTargetOffsetForPhase(_currentPhase);
-        }
-    }
-
-    private float GetTargetOffsetForPhase(LookPhase phase)
-    {
-        switch (phase)
-        {
             case LookPhase.TurnRight:
-                return 60; // +60
+                TurnSide(LookPhase.LookRight);
+                break;
+
+            case LookPhase.LookRight:
+                LookSide(LookPhase.TurnLeft, -_turnAngle);
+                break;
+
             case LookPhase.TurnLeft:
-                return -60; // -60
-            case LookPhase.ReturnCenter:
-                return 0f; // возврат к 0
-            default:
-                return 0f;
+                TurnSide(LookPhase.LookLeft);
+                break;
+
+            case LookPhase.LookLeft:
+                LookSide(LookPhase.TurnCenter, 0);
+                break;
+
+            case LookPhase.TurnCenter:
+                TurnSide(LookPhase.LookCenter);
+                break;
+
+            case LookPhase.LookCenter:
+                if (_stateTimer >= _lookDuration)
+                {
+                    _currentPhase = LookPhase.Done;
+                }
+                break;
+
+            case LookPhase.Done:
+                StateSwitcher.SwitchState<RunnerPatrolState>();
+                return;
         }
     }
 
@@ -129,5 +92,27 @@ public class RunnerLookAroundState : RunnerState
     {
         _agent.isStopped = false;
         _agent.updateRotation = true;
+    }
+
+    private void LookSide(LookPhase lookPhase, float turnAngle)
+    {
+        if (_stateTimer >= _initialWaitTime)
+        {
+            _targetAngle = _initialAngle + turnAngle;
+            _currentPhase = lookPhase;
+            _stateTimer = 0f;
+        }
+    }
+
+    private void TurnSide(LookPhase lookPhase)
+    {
+        _currentAngle = Mathf.MoveTowards(_currentAngle, _targetAngle, _turnSpeed * Time.deltaTime);
+        _transform.rotation = Quaternion.Euler(0f, _currentAngle, 0f);
+        
+        if (Mathf.Approximately(_currentAngle, _targetAngle))
+        {
+            _currentPhase = lookPhase;
+            _stateTimer = 0f;
+        }
     }
 }

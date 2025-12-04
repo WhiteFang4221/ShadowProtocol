@@ -224,12 +224,12 @@ MonoBehaviour:
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 1
-  m_TileSize: 256
+  m_TileSize: 16
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.13333334
-  m_MinRegionArea: 0
+  m_MinRegionArea: 1
   m_NavMeshData: {fileID: 23800000, guid: 8a5ef1198eba54e49b5218c287b159e4, type: 2}
-  m_BuildHeightMesh: 0
+  m_BuildHeightMesh: 1
 --- !u!43 &199626197
 Mesh:
   m_ObjectHideFlags: 0
@@ -1289,7 +1289,7 @@ Transform:
   m_GameObject: {fileID: 566026739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.1618, y: 6.1416893, z: -2.8398}
+  m_LocalPosition: {x: 0.1618, y: 6.15, z: -2.8398}
   m_LocalScale: {x: 4.822648, y: 1, z: 1.1730942}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6734,6 +6734,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_AutoRepath
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: m_BaseOffset
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}

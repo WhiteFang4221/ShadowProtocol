@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b062f1523caea42b07a6ea406bb5e2, type: 3}
   m_Name: RunnerData
   m_EditorClassIdentifier: 
-  _speed: 6.8
+  _speed: 5
   _followSpeed: 7
-  _rotationSpeed: 360
+  _rotationSpeed: 104
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 192
@@ -22,7 +22,7 @@ MonoBehaviour:
   _viewRadius: 10
   _nearbyRadius: 3
   _alertDuration: 5
-  _timeSeePlayerAfterLoss: 5
-  _baseSuspicionPerSecond: 30
+  _timeSeePlayerAfterLoss: 2
+  _baseSuspicionPerSecond: 40
   _suspicionDecayPerSecond: 25
-  _suspicionToSearch: 80
+  _suspicionToSearch: 50

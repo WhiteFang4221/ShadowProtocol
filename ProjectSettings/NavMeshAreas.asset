@@ -12,7 +12,7 @@ NavMeshProjectSettings:
   - name: Jump
     cost: 2
   - name: GoodPath
-    cost: 3
+    cost: 1
   - name: 
     cost: 1
   - name: 
@@ -76,7 +76,7 @@ NavMeshProjectSettings:
     agentRadius: 0.4
     agentHeight: 1
     agentSlope: 0
-    agentClimb: 1
+    agentClimb: 0.5
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
