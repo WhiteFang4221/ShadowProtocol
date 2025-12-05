@@ -8,11 +8,12 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
     [SerializeField] private HealthData _healthData;
     [SerializeField] private PlayerData _data;
     
-    private PlayerHealth _health;
+    private static PlayerHealth _health;
     private PlayerStateMachine _stateMachine;
     private Rigidbody _rigidbody;
     [Inject] private GameInput _input;
-    
+
+    [field: SerializeField] public int CurrentHealth {get; private set;} = 0;
     public PlayerData Data => _data;
     public Rigidbody Rigidbody => _rigidbody;
     public GameInput Input => _input;
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
     private void Update()
     {
         _stateMachine.HandleInput();
+        CurrentHealth = _health.CurrentHealth;
     }
 
     private void FixedUpdate()

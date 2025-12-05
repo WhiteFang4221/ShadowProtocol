@@ -10,6 +10,10 @@ public abstract class Enemy : MonoBehaviour, IDoorEnterable
     [SerializeField] private EnemyData _data;
     [SerializeField] private EnemyVision _enemyVision;
     [SerializeField] private List<KeyCard> _keyCards;
+    [SerializeField] private EnemyAnimationHandler _enemyAnimationHandler;
+    [SerializeField] private DamageSource _damageSource;
+    
+    private EnemyAttackHandler _attackHandler;
     private NavMeshAgent _meshAgent;
     private Transform _transform;
     public EnemyVision EnemyVision => _enemyVision;
@@ -17,6 +21,7 @@ public abstract class Enemy : MonoBehaviour, IDoorEnterable
     public Transform Transform => _transform;
     public NavMeshAgent Agent => _meshAgent;
     public List<KeyCard> KeyCards => _keyCards;
+    public EnemyAnimationHandler EnemyAnimationHandler => _enemyAnimationHandler;
 
     private void Start()
     {
@@ -25,8 +30,9 @@ public abstract class Enemy : MonoBehaviour, IDoorEnterable
 
     protected virtual void Initialize()
     {
+        _attackHandler = gameObject.AddComponent<EnemyAttackHandler>();
+        _attackHandler.Initialize(_enemyAnimationHandler, _damageSource);
         _meshAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
     }
-
 }

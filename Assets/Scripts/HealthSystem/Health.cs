@@ -7,6 +7,7 @@ public abstract class Health : IHealth
     private int _currentHealth;
     private bool _isAlive;
     
+    public int CurrentHealth => _currentHealth;
     public event Action OnChanged;
     public event Action OnTakeDamage;
     public event Action OnDeath;

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3908935771898624982}
   - component: {fileID: 7116604091986782231}
   - component: {fileID: 1236117540015739043}
-  - component: {fileID: 7466538786130112652}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -153,25 +152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthData: {fileID: 11400000, guid: ce2acf0911c9ad34f8693bae1d65a891, type: 2}
   _data: {fileID: 11400000, guid: 7e53bcca61ef50541a7cae935fc3b022, type: 2}
---- !u!114 &7466538786130112652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873884125752141866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 0
-  m_Area: 0
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 1
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
 --- !u!1 &4103960360230975629
 GameObject:
   m_ObjectHideFlags: 0
