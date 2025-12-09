@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class Health : IHealth
+public abstract class Health
 {
     private readonly HealthData _healthData;
     private int _currentHealth;
@@ -24,6 +24,7 @@ public abstract class Health : IHealth
     
     public void TakeDamage(int damage)
     {
+        Debug.Log("Наносят урон " + damage);
         if (!_isAlive) return;
         
         OnTakeDamage?.Invoke();

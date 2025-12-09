@@ -50,7 +50,7 @@ public class RunnerAlertState : RunnerState
 
     public override void Exit()
     {
-        _agent.isStopped = false; 
+        _agent.isStopped = true; 
         _enemyVision.IsDecaySuspicion = false; 
     }
 }

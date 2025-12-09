@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
+public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition, IHealth
 {
     [SerializeField] private HealthData _healthData;
     [SerializeField] private PlayerData _data;
     
-    private static PlayerHealth _health;
     private PlayerStateMachine _stateMachine;
     private Rigidbody _rigidbody;
     [Inject] private GameInput _input;
@@ -21,9 +20,11 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
 
     public List<KeyCard> KeyCards { get; private set; } = new() { KeyCard.None };
     
+    public Health Health { get; private set; }
+    
     private void Awake()
     {
-        _health = new PlayerHealth(_healthData);
+        Health = new PlayerHealth(_healthData);
         
         _stateMachine = new PlayerStateMachine(this);
         _rigidbody = GetComponent<Rigidbody>();
@@ -34,13 +35,11 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition
     private void Update()
     {
         _stateMachine.HandleInput();
-        CurrentHealth = _health.CurrentHealth;
+        CurrentHealth = Health.CurrentHealth;
     }
 
     private void FixedUpdate()
     {
         _stateMachine.Update();
     }
-
-    
 }

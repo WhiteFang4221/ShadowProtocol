@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _followSpeed: 7
-  _rotationSpeed: 104
+  _rotationSpeed: 360
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 192
@@ -26,4 +26,4 @@ MonoBehaviour:
   _baseSuspicionPerSecond: 40
   _suspicionDecayPerSecond: 25
   _suspicionToSearch: 50
-  _attackRange: 1.5
+  _attackRange: 2

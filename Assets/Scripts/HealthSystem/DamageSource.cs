@@ -3,33 +3,42 @@ using UnityEngine;
 
 public abstract class DamageSource : MonoBehaviour, IDamageSource
 {
+    private bool _isDamageHasDealt = false;
     [field: SerializeField] public int Damage { get; private set; }
     public IHealth Owner { get; private set; }
 
     private void Awake()
     {
-        SetEnabled(false);
+        SetActive(false);
         Owner = GetComponentInParent<Runner>()?.GetComponent<IHealth>();
+        Debug.Log(Owner);
     }
 
-    public void SetEnabled(bool enabled)
+    public void SetActive(bool enabled)
     {
         this.enabled = enabled;
         Debug.Log($"ElectricBaton: {(enabled ? "включён" : "выключен")}");
-    }
-    
-    public void ProcessDamage(IHealth target)
-    {
-        DamageHandler.ApplyDamage(this, target);
+        
+        if (enabled == false)
+        {
+            _isDamageHasDealt = false;
+        }
     }
 
     private  void OnTriggerEnter(Collider other)
     {
-        if (TryGetComponent(out Health health))
+        if (_isDamageHasDealt)
+            return; 
+        
+        if (other.TryGetComponent<IHealth>(out IHealth targetHealth))
         {
-            if (health != Owner)
+            Debug.Log(targetHealth);
+            
+            if (targetHealth != Owner)
             {
-                DamageHandler.ApplyDamage(this, health);
+                Debug.Log("Триггер попал");
+                DamageHandler.ApplyDamage(this, targetHealth);
+                _isDamageHasDealt = true;
             }
         }
     }

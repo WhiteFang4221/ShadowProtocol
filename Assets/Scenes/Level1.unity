@@ -897,6 +897,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 365281827}
+--- !u!114 &365281837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42467050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323e75be89ec9c14b95d34f0fecbd67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyAnimationHandler: {fileID: 365281828}
+  _damageSource: {fileID: 811906084}
 --- !u!1 &366990856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,7 +2462,8 @@ GameObject:
   - component: {fileID: 811906082}
   - component: {fileID: 811906081}
   - component: {fileID: 811906084}
-  m_Layer: 9
+  - component: {fileID: 811906085}
+  m_Layer: 11
   m_Name: Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2556,6 +2571,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 1
+--- !u!54 &811906085
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811906077}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!43 &941125531
 Mesh:
   m_ObjectHideFlags: 0
@@ -5056,6 +5098,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3908935771898624982, guid: 89c53285b3268bd4492f08979dbda8ac, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3908935771898624982, guid: 89c53285b3268bd4492f08979dbda8ac, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116604091986782231, guid: 89c53285b3268bd4492f08979dbda8ac, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6980,6 +7034,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Runner
       objectReference: {fileID: 0}
+    - target: {fileID: 4963270502019093024, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: _healthData
+      value: 
+      objectReference: {fileID: 11400000, guid: d46bc264c49d8b84e9ff4fd728331f62, type: 2}
     - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: _damageSource
       value: 
@@ -6996,6 +7058,10 @@ PrefabInstance:
       propertyPath: enemyAnimationHandler
       value: 
       objectReference: {fileID: 365281828}
+    - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: _enemyAnimationHandler
+      value: 
+      objectReference: {fileID: 365281828}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -7009,6 +7075,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3336641200527207265, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 365281828}
+    - targetCorrespondingSourceObject: {fileID: 3336641200527207265, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 365281837}
   m_SourcePrefab: {fileID: 100100000, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
 --- !u!1001 &5753355353329980950
 PrefabInstance:

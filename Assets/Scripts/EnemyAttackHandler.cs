@@ -3,27 +3,28 @@ using System;
 using UnityEngine;
 public class EnemyAttackHandler: MonoBehaviour
 {
-    private EnemyAnimationHandler _enemyAnimationHandler;
-    private DamageSource _damageSource;
+    [SerializeField] private EnemyAnimationHandler _enemyAnimationHandler;
+    [SerializeField] private DamageSource _damageSource;
 
     public void OnEnable()
     {
-        _enemyAnimationHandler.OnStartAttack += OnAttackStarted;
+        _enemyAnimationHandler.OnAttackHitFrame += SetDamageSourceActive;
+        _enemyAnimationHandler.OnAttackEndFrame += SetDamageSourceActive;
+    }
+    
+    public void OnDisable()
+    {
+        _enemyAnimationHandler.OnAttackHitFrame -= SetDamageSourceActive;
+        _enemyAnimationHandler.OnAttackEndFrame -= SetDamageSourceActive;
     }
 
-    public void Initialize(EnemyAnimationHandler enemyAnimationHandler, DamageSource damageSource)
+    public void Attack()
     {
-        _enemyAnimationHandler = enemyAnimationHandler;
-        _damageSource = damageSource;
+        _enemyAnimationHandler.Attack();
     }
-
-    public void OnAttackStarted()
+    
+    private void SetDamageSourceActive(bool isAttacking)
     {
-        _damageSource.SetEnabled(true);
-    }
-
-    public void OnAttackFinished()
-    {
-        _damageSource.SetEnabled(false);
+        _damageSource.SetActive(isAttacking);
     }
 }

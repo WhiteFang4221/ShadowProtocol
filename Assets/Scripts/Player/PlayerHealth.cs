@@ -4,8 +4,6 @@ public class PlayerHealth : Health
 
     protected override void HandleDeath()
     {
-        // Вызов GameOver
-        // GameManager.Instance.GameOver();
-        // Debug.Log("Игрок умер!");
+
     }
 }

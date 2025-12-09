@@ -6,12 +6,23 @@ using UnityEngine;
 public abstract class EnemyAnimationHandler : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    public Animator Animator => _animator;
 
-    public event Action OnStartAttack;
+    private const string AttackTrigger = "AttackTrigger";
+    public event Action<bool> OnAttackHitFrame;
+    public event Action<bool> OnAttackEndFrame;
 
-    public virtual void Attack()
+    public void Attack()
     {
-        OnStartAttack?.Invoke();
+        _animator.SetTrigger(AttackTrigger);
+    }
+    
+    public void NotifyAttackHitFrame()
+    {
+        OnAttackHitFrame?.Invoke(true);
+    }
+
+    public void NotifyAttackEndFrame()
+    {
+        OnAttackEndFrame?.Invoke(false);
     }
 }
