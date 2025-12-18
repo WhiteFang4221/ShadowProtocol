@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(FieldOfView))]
-public abstract class Enemy : MonoBehaviour, IDoorEnterable, IHealth
+public abstract class Enemy : MonoBehaviour, IDoorEnterable, IHealth, IStunable
 {
     [SerializeField] private EnemyData _data;
     [SerializeField] private HealthData _healthData;
@@ -33,5 +33,11 @@ public abstract class Enemy : MonoBehaviour, IDoorEnterable, IHealth
         _meshAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         Health = new PlayerHealth(_healthData);
+    }
+
+    public bool IsStun { get; }
+    public void Stun()
+    {
+        Debug.Log("Enemy is Stun");
     }
 }

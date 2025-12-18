@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition, IHealth
+public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition, IHealth, IStunable
 {
     [SerializeField] private HealthData _healthData;
     [SerializeField] private PlayerData _data;
@@ -41,5 +41,11 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition, IHealth
     private void FixedUpdate()
     {
         _stateMachine.Update();
+    }
+
+    public bool IsStun { get; }
+    public void Stun()
+    {
+        Debug.Log("Player is Stun");
     }
 }

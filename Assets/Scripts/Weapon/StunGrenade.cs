@@ -7,6 +7,7 @@ using UnityEngine;
 public class StunGrenade : MonoBehaviour
 {
     private static readonly float BlinkDivider = 2f;
+    [SerializeField] private StunArea _stunArea;
     
     [Header("Settings")]
     [SerializeField] private float _activationDelay = 3f;
@@ -87,10 +88,8 @@ public class StunGrenade : MonoBehaviour
             .Append(_originalMaterial.DOColor(_originalColor, _currentBlinkDuration / BlinkDivider));
     }
 
-    public void Activate()
+    private void Activate()
     {
-        Debug.Log("StunGrenade: Activated!");
-
         if (_blinkTweener != null)
         {
             _blinkTweener.Kill();
@@ -101,7 +100,8 @@ public class StunGrenade : MonoBehaviour
         {
             _originalMaterial.color = _warningColor;
         }
-        
+
+        _stunArea.Explode();
         Destroy(gameObject);
     }
 
