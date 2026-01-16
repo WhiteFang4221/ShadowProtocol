@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59018e04b32b4009bb742e00aaf79890, type: 3}
-  m_Name: RunnerHealthData
+  m_Script: {fileID: 11500000, guid: 9d8e247653d7b054db2042da764b4a48, type: 3}
+  m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  _maxHealth: 1
+  _speed: 15
+  _rotationPerFrame: 0.2

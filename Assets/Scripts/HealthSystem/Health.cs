@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Health
 {
-    private readonly HealthData _healthData;
+    private readonly HealthConfig _healthConfig;
     private int _currentHealth;
     private bool _isAlive;
     
@@ -12,13 +12,13 @@ public abstract class Health
     public event Action OnTakeDamage;
     public event Action OnDeath;
 
-    public Health(HealthData data)
+    public Health(HealthConfig config)
     {
-        if (data == null)
-            throw new ArgumentNullException(nameof(data));
+        if (config == null)
+            throw new ArgumentNullException(nameof(config));
         
-        _healthData = data;
-        _currentHealth = _healthData.MaxHealth;
+        _healthConfig = config;
+        _currentHealth = _healthConfig.MaxHealth;
         _isAlive = _currentHealth > 0; 
     }
     
@@ -41,7 +41,7 @@ public abstract class Health
     protected void Change(int amount)
     {
         int oldHealth = _currentHealth;
-        _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, _healthData.MaxHealth);
+        _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, _healthConfig.MaxHealth);
 
         if (_currentHealth <= 0 && _isAlive)
         {

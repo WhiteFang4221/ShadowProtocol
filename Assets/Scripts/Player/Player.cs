@@ -1,19 +1,20 @@
 using Reflex.Attributes; 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition, IHealth, IStunable
 {
-    [SerializeField] private HealthData _healthData;
-    [SerializeField] private PlayerData _data;
+    [Inject] private PlayerConfig config;
+    [Inject] private HealthConfig healthConfig;
+    [Inject] private GameInput _input;
     
     private PlayerStateMachine _stateMachine;
     private Rigidbody _rigidbody;
-    [Inject] private GameInput _input;
 
     [field: SerializeField] public int CurrentHealth {get; private set;} = 0;
-    public PlayerData Data => _data;
+    public PlayerConfig Config => config;
     public Rigidbody Rigidbody => _rigidbody;
     public GameInput Input => _input;
     public Transform Transform { get; private set; }
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition, IHealth, I
     
     private void Awake()
     {
-        Health = new PlayerHealth(_healthData);
+        Health = new PlayerHealth(healthConfig);
         
         _stateMachine = new PlayerStateMachine(this);
         _rigidbody = GetComponent<Rigidbody>();
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour, IDoorEnterable, IPlayerPosition, IHealth, I
     }
 
     public bool IsStun { get; }
+    
     public void Stun()
     {
         Debug.Log("Player is Stun");

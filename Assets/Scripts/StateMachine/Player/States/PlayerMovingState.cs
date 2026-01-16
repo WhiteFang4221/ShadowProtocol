@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovingState : PlayerState
 {
-    public PlayerMovingState(IStateSwitcher stateSwitcher, PlayerData data, Player player) : base(stateSwitcher, data, player){ }
+    public PlayerMovingState(IStateSwitcher stateSwitcher, PlayerConfig config, Player player) : base(stateSwitcher, config, player){ }
 
     public override void Enter(){}
     
@@ -30,7 +30,7 @@ public class PlayerMovingState : PlayerState
         }
         
         Vector3 direction = new Vector3(MoveInput.x, 0, MoveInput.y).normalized;
-        Vector3 targetVelocity = new Vector3(direction.x * Data.Speed, 0, direction.z * Data.Speed);
+        Vector3 targetVelocity = new Vector3(direction.x * Config.Speed, 0, direction.z * Config.Speed);
         PlayerInstance.Rigidbody.velocity = Vector3.Lerp(PlayerInstance.Rigidbody.velocity, targetVelocity, 10f * Time.fixedDeltaTime);
     }
 
@@ -40,6 +40,6 @@ public class PlayerMovingState : PlayerState
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(new Vector3(MoveInput.x, 0, MoveInput.y));
-        PlayerInstance.Transform.rotation = Quaternion.Slerp(PlayerInstance.Transform.rotation, targetRotation, Data.RotationPerFrame);
+        PlayerInstance.Transform.rotation = Quaternion.Slerp(PlayerInstance.Transform.rotation, targetRotation, Config.RotationPerFrame);
     }
 }

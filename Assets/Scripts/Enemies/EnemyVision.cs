@@ -1,11 +1,12 @@
 ﻿using System;
 using Reflex.Attributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyVision : MonoBehaviour
 {
     [SerializeField] private FieldOfView _fov;
-    [SerializeField] private EnemyData _enemyData;
+    [FormerlySerializedAs("_enemyData")] [SerializeField] private EnemyConfig enemyConfig;
     [Inject] private IPlayerPosition _playerPosition;
 
     [SerializeField] private float _suspicionLevel = 0f;
@@ -17,7 +18,7 @@ public class EnemyVision : MonoBehaviour
     private float _nextCheckTime;
     private bool _isDecaySuspicion = false;
 
-    public EnemyData Data => _enemyData;
+    public EnemyConfig Config => enemyConfig;
     public IPlayerPosition PlayerPosition => _playerPosition;
     public bool IsCurrentlySeeing => _isCurrentlySeeing;
 
@@ -57,7 +58,7 @@ public class EnemyVision : MonoBehaviour
         if (Time.time >= _nextCheckTime)
         {
             CheckVisibility();
-            _nextCheckTime = Time.time + _enemyData.ViewDelay;
+            _nextCheckTime = Time.time + enemyConfig.ViewDelay;
         }
     }
 
@@ -69,10 +70,10 @@ public class EnemyVision : MonoBehaviour
         if (_isCurrentlySeeing)
         {
             float distance = Vector3.Distance(transform.position, _playerPosition.Transform.position);
-            float normalizedDistance = Mathf.Clamp01(distance / _enemyData.ViewRadius);
+            float normalizedDistance = Mathf.Clamp01(distance / enemyConfig.ViewRadius);
             float distanceFactor = 1f - normalizedDistance;
-            float distanceMultiplier = 1f + (distanceFactor * distanceFactor) * _enemyData.DistanceInfluenceFactor;
-            float growth = _enemyData.BaseSuspicionPerSecond * distanceMultiplier * timeSinceLastCheck / 100f;
+            float distanceMultiplier = 1f + (distanceFactor * distanceFactor) * enemyConfig.DistanceInfluenceFactor;
+            float growth = enemyConfig.BaseSuspicionPerSecond * distanceMultiplier * timeSinceLastCheck / 100f;
 
             _suspicionLevel += growth;
             _lastKnownPosition = _playerPosition.Transform.position;
@@ -82,7 +83,7 @@ public class EnemyVision : MonoBehaviour
         {
             if (IsDecaySuspicion == false)
             {
-                _suspicionLevel -= _enemyData.SuspicionDecayPerSecond * timeSinceLastCheck / 100f;
+                _suspicionLevel -= enemyConfig.SuspicionDecayPerSecond * timeSinceLastCheck / 100f;
             }
         }
 

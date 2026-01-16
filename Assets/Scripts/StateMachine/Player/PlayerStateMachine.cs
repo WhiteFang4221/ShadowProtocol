@@ -6,9 +6,9 @@ public class PlayerStateMachine : StateMachine
     {
         States = new List<IState>
         {
-            new PlayerIdleState(this, player.Data, player),
-            new PlayerMovingState(this, player.Data, player),
-            new PlayerStunState(this, player.Data, player),
+            new PlayerIdleState(this, player.Config, player),
+            new PlayerMovingState(this, player.Config, player),
+            new PlayerStunState(this, player.Config, player),
         };
         
         CurrentState = States[0];

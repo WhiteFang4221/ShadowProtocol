@@ -7935,15 +7935,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5532913705540067148, guid: b83518cd30cf3a04391fe87fa08af0cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.06
+      value: 22.97
       objectReference: {fileID: 0}
     - target: {fileID: 5532913705540067148, guid: b83518cd30cf3a04391fe87fa08af0cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.92
+      value: 1.044
       objectReference: {fileID: 0}
     - target: {fileID: 5532913705540067148, guid: b83518cd30cf3a04391fe87fa08af0cd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.5
+      value: -4.54
       objectReference: {fileID: 0}
     - target: {fileID: 5532913705540067148, guid: b83518cd30cf3a04391fe87fa08af0cd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8082,6 +8082,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1460427790194706087, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: enemyConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 998a0619436ce6d48896591e45ca87b7, type: 2}
     - target: {fileID: 2455324622120067180, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: m_Radius
       value: 0.5
@@ -8176,6 +8180,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
       propertyPath: _healthData
+      value: 
+      objectReference: {fileID: 11400000, guid: d46bc264c49d8b84e9ff4fd728331f62, type: 2}
+    - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}
+      propertyPath: healthConfig
       value: 
       objectReference: {fileID: 11400000, guid: d46bc264c49d8b84e9ff4fd728331f62, type: 2}
     - target: {fileID: 5811614648029590722, guid: a0ec2ca5d6fc78840baa99d814bbb0fb, type: 3}

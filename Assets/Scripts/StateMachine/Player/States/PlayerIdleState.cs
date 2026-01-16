@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerState
 {
-    public PlayerIdleState(IStateSwitcher stateSwitcher, PlayerData data, Player player) : base(stateSwitcher, data, player){ }
+    public PlayerIdleState(IStateSwitcher stateSwitcher, PlayerConfig config, Player player) : base(stateSwitcher, config, player){ }
 
     public override void Enter(){}
 

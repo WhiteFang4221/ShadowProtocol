@@ -11,7 +11,7 @@ public class RunnerSearchState: RunnerState
     
     private bool _hasReachedTarget = false;
     
-    public RunnerSearchState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy)
+    public RunnerSearchState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy)
     {
     }
 
@@ -33,14 +33,14 @@ public class RunnerSearchState: RunnerState
         {
             _agent.SetDestination(EnemyInstance.EnemyVision.LastKnownPosition);
             
-            if (_enemyVision.SuspicionLevel >= Data.AlertThreshold)
+            if (_enemyVision.SuspicionLevel >= Config.AlertThreshold)
             {
                 StateSwitcher.SwitchState<RunnerAlertState>();
                 return;
             }
         }
         
-        if (!_hasReachedTarget && _transform.position.IsEnoughClose(EnemyInstance.EnemyVision.LastKnownPosition, Data.MinDistanceToTarget))
+        if (!_hasReachedTarget && _transform.position.IsEnoughClose(EnemyInstance.EnemyVision.LastKnownPosition, Config.MinDistanceToTarget))
         {
             _agent.isStopped = true;
             _hasReachedTarget = true;

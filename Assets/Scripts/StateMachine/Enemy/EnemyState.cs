@@ -1,13 +1,13 @@
 ﻿public abstract class EnemyState<TEnemy> : IState where TEnemy : Enemy
 {
     protected  IStateSwitcher StateSwitcher;
-    protected  EnemyData Data;
+    protected  EnemyConfig Config;
     protected  TEnemy EnemyInstance;
 
-    public EnemyState(IStateSwitcher stateSwitcher, EnemyData data, TEnemy enemy)
+    public EnemyState(IStateSwitcher stateSwitcher, EnemyConfig config, TEnemy enemy)
     {
         StateSwitcher = stateSwitcher;
-        Data = data;
+        Config = config;
         EnemyInstance = enemy;
     }
     

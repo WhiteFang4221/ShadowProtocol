@@ -7,14 +7,14 @@ public class EnemyVisionEditor : Editor
     private void OnSceneGUI()
     {
         EnemyVision vision = (EnemyVision)target;
-        if (vision == null || vision.Data == null)
+        if (vision == null || vision.Config == null)
             return;
 
-        EnemyData data = vision.Data;
+        EnemyConfig config = vision.Config;
         Transform enemyTransform = vision.transform;
 
-        float viewRadius = data.ViewRadius;
-        float viewAngle = data.ViewAngle; // например, 90°
+        float viewRadius = config.ViewRadius;
+        float viewAngle = config.ViewAngle; // например, 90°
         Vector3 origin = enemyTransform.position + Vector3.up * 0.02f;
         Vector3 forward = enemyTransform.forward;
 

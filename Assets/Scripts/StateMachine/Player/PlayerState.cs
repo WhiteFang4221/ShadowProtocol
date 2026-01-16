@@ -3,14 +3,14 @@ using UnityEngine;
 public abstract class PlayerState : IState
 {
     protected readonly IStateSwitcher StateSwitcher;
-    protected readonly PlayerData Data;
+    protected readonly PlayerConfig Config;
     protected readonly Player PlayerInstance;
     protected Vector2 MoveInput;
 
-    public PlayerState(IStateSwitcher stateSwitcher, PlayerData data, Player player)
+    public PlayerState(IStateSwitcher stateSwitcher, PlayerConfig config, Player player)
     {
         StateSwitcher = stateSwitcher;
-        Data = data;
+        Config = config;
         PlayerInstance = player;
     }
     

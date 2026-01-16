@@ -1,13 +1,14 @@
 using Reflex.Attributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField] private EnemyData _enemyData;
+    [SerializeField] private EnemyConfig enemyConfig;
     [Inject] private IPlayerPosition _playerPosition;
 
-    public float ViewRadius => _enemyData.ViewRadius;
-    public float HalfViewAngle => _enemyData.ViewAngle / 2f;
+    public float ViewRadius => enemyConfig.ViewRadius;
+    public float HalfViewAngle => enemyConfig.ViewAngle / 2f;
     
     public bool IsPlayerInField()
     {
@@ -16,7 +17,7 @@ public class FieldOfView : MonoBehaviour
 
         bool isInRadius = distanceToPlayer <= ViewRadius;
         bool isInAngle = Vector3.Angle(transform.forward, dirToPlayer) <= HalfViewAngle;
-        bool hasLineOfSight = !Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, _enemyData.ObstacleMask);
+        bool hasLineOfSight = !Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, enemyConfig.ObstacleMask);
 
         return isInRadius && isInAngle && hasLineOfSight;
     }

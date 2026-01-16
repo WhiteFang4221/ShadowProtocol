@@ -9,7 +9,7 @@ public class RunnerAlertState : RunnerState
     private float _remainingAlertTime;
     private Vector3 _currentChaseTarget; 
 
-    public RunnerAlertState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy) { }
+    public RunnerAlertState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy) { }
 
     public override void Enter()
     {
@@ -19,7 +19,7 @@ public class RunnerAlertState : RunnerState
         _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
         _agent.SetDestination(_currentChaseTarget);
         _enemyVision.IsDecaySuspicion = true;
-        _remainingAlertTime = Data.TimeSeePlayerAfterLoss; 
+        _remainingAlertTime = Config.TimeSeePlayerAfterLoss; 
     }
 
     public override void Update()
@@ -27,7 +27,7 @@ public class RunnerAlertState : RunnerState
         _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
         _agent.SetDestination(_currentChaseTarget);
         
-        if (Vector3Extensions.IsEnoughClose(_agent.transform.position, _currentChaseTarget, Data.AttackRange))
+        if (Vector3Extensions.IsEnoughClose(_agent.transform.position, _currentChaseTarget, Config.AttackRange))
         {
             StateSwitcher.SwitchState<RunnerAttackState>();
             return;
@@ -35,7 +35,7 @@ public class RunnerAlertState : RunnerState
 
         if (_enemyVision.IsCurrentlySeeing)
         {
-            _remainingAlertTime = Data.TimeSeePlayerAfterLoss; 
+            _remainingAlertTime = Config.TimeSeePlayerAfterLoss; 
         }
         else
         {

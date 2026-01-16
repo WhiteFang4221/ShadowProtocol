@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "EnemyData", menuName = "DataAsset/Enemy")] 
-public class EnemyData : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyConfig", menuName = "ConfigAsset/Enemy")] 
+public class EnemyConfig : ScriptableObject
 {
     public readonly float MinDistanceToTarget = 0.1f;
     public readonly float ViewDelay = 0.01f;

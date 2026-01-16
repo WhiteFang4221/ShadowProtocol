@@ -11,7 +11,7 @@ public class RunnerAttackState : RunnerState
 
     private bool _isAttacking = false;
 
-    public RunnerAttackState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data,
+    public RunnerAttackState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config,
         enemy){}
 
     public override void Enter()
@@ -52,7 +52,7 @@ public class RunnerAttackState : RunnerState
     private bool IsInRangeAttack()
     {
         return Vector3Extensions.IsEnoughClose(_transform.position, _enemyVision.PlayerPosition.Transform.position,
-            Data.AttackRange);
+            Config.AttackRange);
     }
 
     private void RotateToTarget()
@@ -69,6 +69,6 @@ public class RunnerAttackState : RunnerState
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, targetRotation, Data.RotationSpeed * Time.deltaTime);
+        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, targetRotation, Config.RotationSpeed * Time.deltaTime);
     }
 }

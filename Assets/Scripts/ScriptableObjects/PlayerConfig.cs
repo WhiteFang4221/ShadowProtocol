@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerData", menuName = "DataAsset/Player")] 
-public class PlayerData : ScriptableObject
+[CreateAssetMenu(fileName = "PlayerConfig", menuName = "ConfigAsset/Player")] 
+public class PlayerConfig : ScriptableObject
 {
     [SerializeField, Range(0, 15)] private float _speed = 15;
     [SerializeField, Range(0.1f, 1)] private float _rotationPerFrame = 0.2f;

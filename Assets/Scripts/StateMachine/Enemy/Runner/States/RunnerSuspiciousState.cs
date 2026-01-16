@@ -8,7 +8,7 @@ public class RunnerSuspiciousState : RunnerState
     private EnemyVision EnemyVision => EnemyInstance.EnemyVision;
     public float SuspicionLevel => EnemyVision.SuspicionLevel;
 
-    public RunnerSuspiciousState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data,
+    public RunnerSuspiciousState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config,
         enemy)
     {
         _transform = enemy.Transform;
@@ -25,7 +25,7 @@ public class RunnerSuspiciousState : RunnerState
     {
         RotateToTarget();
 
-        if (SuspicionLevel > Data.SuspicionToSearch)
+        if (SuspicionLevel > Config.SuspicionToSearch)
         {
             StateSwitcher.SwitchState<RunnerSearchState>();
         }
@@ -61,6 +61,6 @@ public class RunnerSuspiciousState : RunnerState
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, targetRotation, Data.RotationSpeed * Time.deltaTime);
+        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, targetRotation, Config.RotationSpeed * Time.deltaTime);
     }
 }

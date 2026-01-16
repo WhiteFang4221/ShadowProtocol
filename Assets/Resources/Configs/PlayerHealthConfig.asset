@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8e247653d7b054db2042da764b4a48, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 59018e04b32b4009bb742e00aaf79890, type: 3}
+  m_Name: PlayerHealthConfig
   m_EditorClassIdentifier: 
-  _speed: 15
-  _rotationPerFrame: 0.2
+  _maxHealth: 3

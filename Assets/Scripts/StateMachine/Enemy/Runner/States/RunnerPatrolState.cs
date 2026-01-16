@@ -10,12 +10,12 @@ public class RunnerPatrolState : RunnerState
     public NavMeshAgent Agent => EnemyInstance.Agent;
     
 
-    public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy){}
+    public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy){}
     
     public override void Enter()
     {
         Debug.Log("Патрулирую");
-        Agent.speed = Data.Speed;
+        Agent.speed = Config.Speed;
         MoveToTarget();
         EnemyInstance.EnemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
     }
@@ -24,7 +24,7 @@ public class RunnerPatrolState : RunnerState
 
     public override void Update()
     {
-        if (Transform.position.IsEnoughClose(_targetPosition, Data.MinDistanceToTarget))
+        if (Transform.position.IsEnoughClose(_targetPosition, Config.MinDistanceToTarget))
         {
             Stop();
             StateSwitcher.SwitchState<RunnerWaitingState>();

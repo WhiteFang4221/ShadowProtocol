@@ -1,6 +1,6 @@
 public class EnemyHealth : Health
 {
-    public EnemyHealth(HealthData data) : base(data){}
+    public EnemyHealth(HealthConfig config) : base(config){}
 
     protected override void HandleDeath()
     {

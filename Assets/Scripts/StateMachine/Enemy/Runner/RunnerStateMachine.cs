@@ -7,13 +7,13 @@ public class RunnerStateMachine : StateMachine
         
         States = new List<IState>()
         {
-            new RunnerPatrolState(this, runner.Data, runner),
-            new RunnerSuspiciousState(this, runner.Data, runner),
-            new RunnerSearchState(this, runner.Data, runner),
-            new RunnerWaitingState(this, runner.Data, runner),
-            new RunnerAlertState(this, runner.Data, runner),
-            new RunnerAttackState(this, runner.Data, runner),
-            new RunnerLookAroundState(this, runner.Data, runner),
+            new RunnerPatrolState(this, runner.Config, runner),
+            new RunnerSuspiciousState(this, runner.Config, runner),
+            new RunnerSearchState(this, runner.Config, runner),
+            new RunnerWaitingState(this, runner.Config, runner),
+            new RunnerAlertState(this, runner.Config, runner),
+            new RunnerAttackState(this, runner.Config, runner),
+            new RunnerLookAroundState(this, runner.Config, runner),
         };
         
         CurrentState = States[0];

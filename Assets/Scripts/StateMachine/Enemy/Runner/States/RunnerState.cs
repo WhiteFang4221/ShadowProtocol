@@ -4,7 +4,7 @@ public class RunnerState : EnemyState<Runner>
 {
     public IReadOnlyList<PatrolPoint> Waypoints => EnemyInstance.PatrolPoints.Waypoints;
 
-    public RunnerState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy) : base(stateSwitcher, data, enemy)
+    public RunnerState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy)
     {
         
     }

@@ -1,6 +1,6 @@
 public class PlayerHealth : Health
 {
-    public PlayerHealth(HealthData data) : base(data) { }
+    public PlayerHealth(HealthConfig config) : base(config) { }
 
     protected override void HandleDeath()
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class RunnerWaitingState : RunnerState
 {
     private float _timerCount;
-    public RunnerWaitingState(IStateSwitcher stateSwitcher, EnemyData data, Runner runner) : base(stateSwitcher, data, runner){}
+    public RunnerWaitingState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner runner) : base(stateSwitcher, config, runner){}
     
     public override void Enter()
     {

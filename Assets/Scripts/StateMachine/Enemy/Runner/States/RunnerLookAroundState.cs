@@ -20,8 +20,8 @@ public class RunnerLookAroundState : RunnerState
     private enum LookPhase { InitialWait, TurnRight, LookRight, TurnLeft, LookLeft, TurnCenter, LookCenter, Done }
     private LookPhase _currentPhase;
 
-    public RunnerLookAroundState(IStateSwitcher stateSwitcher, EnemyData data, Runner enemy)
-        : base(stateSwitcher, data, enemy) { }
+    public RunnerLookAroundState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy)
+        : base(stateSwitcher, config, enemy) { }
 
     public override void Enter()
     {
@@ -40,7 +40,7 @@ public class RunnerLookAroundState : RunnerState
     {
         if (_enemyVision.IsCurrentlySeeing)
         {
-            if (_enemyVision.SuspicionLevel >= Data.AlertThreshold)
+            if (_enemyVision.SuspicionLevel >= Config.AlertThreshold)
                 StateSwitcher.SwitchState<RunnerAlertState>();
             else
                 StateSwitcher.SwitchState<RunnerSuspiciousState>();
