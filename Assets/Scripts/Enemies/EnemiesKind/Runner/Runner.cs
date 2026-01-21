@@ -6,8 +6,6 @@ public class Runner : Enemy
     [SerializeField] private PatrolPoints _patrolPoints;
     private int _currentWaypoint;
     private RunnerStateMachine _stateMachine;
-
-    private EnemyAttackHandler _attackHandler;
     public PatrolPoints PatrolPoints => _patrolPoints;
     public int CurrentWaypoint => _currentWaypoint;
 

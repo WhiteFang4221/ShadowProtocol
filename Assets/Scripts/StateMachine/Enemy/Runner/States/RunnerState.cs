@@ -1,12 +1,16 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class RunnerState : EnemyState<Runner>
+
+public abstract class RunnerState : EnemyState<Runner>
 {
-    public IReadOnlyList<PatrolPoint> Waypoints => EnemyInstance.PatrolPoints.Waypoints;
+    protected Transform transform;
+    protected IReadOnlyList<PatrolPoint> waypoints => EnemyInstance.PatrolPoints.Waypoints;
+
 
     public RunnerState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy)
     {
-        
+        transform = enemy.Transform;
     }
 
 

@@ -4,9 +4,6 @@ using UnityEngine.AI;
 public class RunnerLookAroundState : RunnerState
 {
     private readonly float _turnAngle = 70;
-    private NavMeshAgent _agent => EnemyInstance.Agent;
-    private Transform _transform => EnemyInstance.Transform;
-    private EnemyVision _enemyVision => EnemyInstance.EnemyVision;
 
     private float _stateTimer;
     private float _initialWaitTime = 1f;
@@ -25,10 +22,10 @@ public class RunnerLookAroundState : RunnerState
 
     public override void Enter()
     {
-        _agent.isStopped = true;
-        _agent.updateRotation = false;
+        agent.isStopped = true;
+        agent.updateRotation = false;
 
-        _initialAngle = _transform.eulerAngles.y;
+        _initialAngle = transform.eulerAngles.y;
         _currentAngle = _initialAngle;
         _targetAngle = _initialAngle;
 
@@ -38,9 +35,9 @@ public class RunnerLookAroundState : RunnerState
 
     public override void Update()
     {
-        if (_enemyVision.IsCurrentlySeeing)
+        if (enemyVision.IsCurrentlySeeing)
         {
-            if (_enemyVision.SuspicionLevel >= Config.AlertThreshold)
+            if (enemyVision.SuspicionLevel >= Config.AlertThreshold)
                 StateSwitcher.SwitchState<RunnerAlertState>();
             else
                 StateSwitcher.SwitchState<RunnerSuspiciousState>();
@@ -90,8 +87,8 @@ public class RunnerLookAroundState : RunnerState
 
     public override void Exit()
     {
-        _agent.isStopped = false;
-        _agent.updateRotation = true;
+        agent.isStopped = false;
+        agent.updateRotation = true;
     }
 
     private void LookSide(LookPhase lookPhase, float turnAngle)
@@ -107,7 +104,7 @@ public class RunnerLookAroundState : RunnerState
     private void TurnSide(LookPhase lookPhase)
     {
         _currentAngle = Mathf.MoveTowards(_currentAngle, _targetAngle, _turnSpeed * Time.deltaTime);
-        _transform.rotation = Quaternion.Euler(0f, _currentAngle, 0f);
+        transform.rotation = Quaternion.Euler(0f, _currentAngle, 0f);
         
         if (Mathf.Approximately(_currentAngle, _targetAngle))
         {

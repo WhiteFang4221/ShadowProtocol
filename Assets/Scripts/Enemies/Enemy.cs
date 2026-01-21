@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(FieldOfView))]
 public abstract class Enemy : MonoBehaviour, IDoorEnterable, IHealth, IStunable
 {
-    [FormerlySerializedAs("_data")] [SerializeField] private EnemyConfig config;
-    [FormerlySerializedAs("_healthData")] [SerializeField] private HealthConfig healthConfig;
+    [SerializeField] private EnemyConfig config;
+    [SerializeField] private HealthConfig healthConfig;
     [SerializeField] private EnemyVision _enemyVision;
     [SerializeField] private List<KeyCard> _keyCards;
     [SerializeField] private EnemyAnimationHandler _enemyAnimationHandler;

@@ -4,9 +4,6 @@ using UnityEngine.AI;
 
 public class RunnerAttackState : RunnerState
 {
-    private Transform _transform => EnemyInstance.Transform;
-    private EnemyVision _enemyVision => EnemyInstance.EnemyVision;
-    private NavMeshAgent _agent => EnemyInstance.Agent;
     private EnemyAnimationHandler EnemyAnimationHandler => EnemyInstance.EnemyAnimationHandler;
 
     private bool _isAttacking = false;
@@ -16,7 +13,7 @@ public class RunnerAttackState : RunnerState
 
     public override void Enter()
     {
-        _enemyVision.IsDecaySuspicion = true;
+        enemyVision.IsDecaySuspicion = true;
         EnemyAnimationHandler.OnAttackHitFrame += SetAttacking;
         EnemyAnimationHandler.OnAttackEndFrame += SetAttacking;
     }
@@ -38,8 +35,8 @@ public class RunnerAttackState : RunnerState
 
     public override void Exit()
     {
-        _agent.isStopped = false;
-        _enemyVision.IsDecaySuspicion = false;
+        agent.isStopped = false;
+        enemyVision.IsDecaySuspicion = false;
         EnemyAnimationHandler.OnAttackHitFrame -= SetAttacking;
         EnemyAnimationHandler.OnAttackEndFrame -= SetAttacking;
     }
@@ -51,7 +48,7 @@ public class RunnerAttackState : RunnerState
 
     private bool IsInRangeAttack()
     {
-        return Vector3Extensions.IsEnoughClose(_transform.position, _enemyVision.PlayerPosition.Transform.position,
+        return Vector3Extensions.IsEnoughClose(transform.position, enemyVision.PlayerPosition.Transform.position,
             Config.AttackRange);
     }
 
@@ -59,16 +56,16 @@ public class RunnerAttackState : RunnerState
     {
         Vector3 targetPosition;
 
-        targetPosition = _enemyVision.PlayerPosition.Transform.position;
+        targetPosition = enemyVision.PlayerPosition.Transform.position;
 
 
-        Vector3 direction = (targetPosition - _transform.position).normalized;
+        Vector3 direction = (targetPosition - transform.position).normalized;
         direction.y = 0;
 
         if (direction == Vector3.zero)
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, targetRotation, Config.RotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Config.RotationSpeed * Time.deltaTime);
     }
 }

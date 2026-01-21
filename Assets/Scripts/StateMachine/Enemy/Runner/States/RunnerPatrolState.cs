@@ -4,27 +4,21 @@ using UnityEngine.AI;
 public class RunnerPatrolState : RunnerState
 {
     private Vector3 _targetPosition;
-
-    public Transform Transform => EnemyInstance.Transform;
     public int CurrentWaypointIndex => EnemyInstance.CurrentWaypoint;
-    public NavMeshAgent Agent => EnemyInstance.Agent;
     
-
     public RunnerPatrolState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy){}
     
     public override void Enter()
     {
         Debug.Log("Патрулирую");
-        Agent.speed = Config.Speed;
+        agent.speed = Config.Speed;
         MoveToTarget();
-        EnemyInstance.EnemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
+        enemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
     }
     
-
-
     public override void Update()
     {
-        if (Transform.position.IsEnoughClose(_targetPosition, Config.MinDistanceToTarget))
+        if (transform.position.IsEnoughClose(_targetPosition, Config.MinDistanceToTarget))
         {
             Stop();
             StateSwitcher.SwitchState<RunnerWaitingState>();
@@ -33,7 +27,7 @@ public class RunnerPatrolState : RunnerState
 
     public override void Exit()
     {
-        EnemyInstance.EnemyVision.OnPlayerFirstSpotted -= OnPlayerSpotted;
+        enemyVision.OnPlayerFirstSpotted -= OnPlayerSpotted;
     }
 
     private void OnPlayerSpotted()
@@ -43,19 +37,19 @@ public class RunnerPatrolState : RunnerState
     
     private void MoveToTarget()
     {
-        Agent.isStopped = false;
+        agent.isStopped = false;
         SetTargetPosition();
-        Agent.SetDestination(_targetPosition);
+        agent.SetDestination(_targetPosition);
     }
 
     private void Stop()
     {
-        Agent.isStopped = true;
+        agent.isStopped = true;
     }
     
     private void SetTargetPosition()
     {
-        _targetPosition = new Vector3(Waypoints[CurrentWaypointIndex].Transform.position.x, Transform.position.y, Waypoints[CurrentWaypointIndex].Transform.position.z);
+        _targetPosition = new Vector3(waypoints[CurrentWaypointIndex].transform.position.x, transform.position.y, waypoints[CurrentWaypointIndex].transform.position.z);
     }
     
 }

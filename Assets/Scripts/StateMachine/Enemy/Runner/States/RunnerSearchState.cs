@@ -3,12 +3,8 @@ using UnityEngine.AI;
 
 public class RunnerSearchState: RunnerState
 {
-    private NavMeshAgent _agent => EnemyInstance.Agent;
-    private Transform _transform => EnemyInstance.Transform;
-    private EnemyVision _enemyVision => EnemyInstance.EnemyVision;
 
     private Vector3 _lastKnownPosition => EnemyInstance.EnemyVision.LastKnownPosition;
-    
     private bool _hasReachedTarget = false;
     
     public RunnerSearchState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy)
@@ -18,36 +14,34 @@ public class RunnerSearchState: RunnerState
     public override void Enter()
     {
         Debug.Log("Ищу Игрока");
-       
-
-        _agent.isStopped = false;
-        _agent.updateRotation = true; 
-        _agent.SetDestination(EnemyInstance.EnemyVision.LastKnownPosition);
-        _enemyVision.IsDecaySuspicion = false;
+        agent.isStopped = false;
+        agent.updateRotation = true; 
+        agent.SetDestination(_lastKnownPosition);
+        enemyVision.IsDecaySuspicion = false;
         _hasReachedTarget = false;
     }
 
     public override void Update()
     {
-        if (_enemyVision.IsCurrentlySeeing)
+        if (enemyVision.IsCurrentlySeeing)
         {
-            _agent.SetDestination(EnemyInstance.EnemyVision.LastKnownPosition);
+            agent.SetDestination(_lastKnownPosition);
             
-            if (_enemyVision.SuspicionLevel >= Config.AlertThreshold)
+            if (suspicionLevel >= Config.AlertThreshold)
             {
                 StateSwitcher.SwitchState<RunnerAlertState>();
                 return;
             }
         }
         
-        if (!_hasReachedTarget && _transform.position.IsEnoughClose(EnemyInstance.EnemyVision.LastKnownPosition, Config.MinDistanceToTarget))
+        if (!_hasReachedTarget && transform.position.IsEnoughClose(_lastKnownPosition, Config.MinDistanceToTarget))
         {
-            _agent.isStopped = true;
+            agent.isStopped = true;
             _hasReachedTarget = true;
-            _enemyVision.IsDecaySuspicion = true;
+            enemyVision.IsDecaySuspicion = true;
         }
         
-        if (_hasReachedTarget || _enemyVision.SuspicionLevel <= 0)
+        if (_hasReachedTarget || suspicionLevel <= 0)
         {
             StateSwitcher.SwitchState<RunnerLookAroundState>();
         }
@@ -55,7 +49,7 @@ public class RunnerSearchState: RunnerState
 
     public override void Exit()
     {
-        _agent.isStopped = false; 
-        _enemyVision.IsDecaySuspicion = true;
+        agent.isStopped = false; 
+        enemyVision.IsDecaySuspicion = true;
     }
 }

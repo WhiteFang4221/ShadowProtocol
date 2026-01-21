@@ -3,33 +3,25 @@ using UnityEngine.AI;
 
 public class RunnerSuspiciousState : RunnerState
 {
-    private Transform _transform;
-    private NavMeshAgent _agent => EnemyInstance.Agent;
-    private EnemyVision EnemyVision => EnemyInstance.EnemyVision;
-    public float SuspicionLevel => EnemyVision.SuspicionLevel;
-
     public RunnerSuspiciousState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config,
-        enemy)
-    {
-        _transform = enemy.Transform;
-    }
+        enemy){}
 
     public override void Enter()
     {
         Debug.Log("Смотрю Смотрю же");
-        _agent.updateRotation = false;
-        _agent.isStopped = true;
+        agent.updateRotation = false;
+        agent.isStopped = true;
     }
 
     public override void Update()
     {
         RotateToTarget();
 
-        if (SuspicionLevel > Config.SuspicionToSearch)
+        if (suspicionLevel > Config.SuspicionToSearch)
         {
             StateSwitcher.SwitchState<RunnerSearchState>();
         }
-        else if (SuspicionLevel <= 0)
+        else if (suspicionLevel <= 0)
         {
             StateSwitcher.SwitchState<RunnerPatrolState>();
         }
@@ -37,30 +29,30 @@ public class RunnerSuspiciousState : RunnerState
 
     public override void Exit()
     {
-        _agent.updateRotation = true;
-        _agent.isStopped = false;
+        agent.updateRotation = true;
+        agent.isStopped = false;
     }
 
     private void RotateToTarget()
     {
         Vector3 targetPosition;
 
-        if (EnemyVision.IsCurrentlySeeing)
+        if (enemyVision.IsCurrentlySeeing)
         {
-            targetPosition = EnemyVision.PlayerPosition.Transform.position;
+            targetPosition = enemyVision.PlayerPosition.Transform.position;
         }
         else
         {
-            targetPosition = EnemyVision.LastKnownPosition;
+            targetPosition = enemyVision.LastKnownPosition;
         }
 
-        Vector3 direction = (targetPosition - _transform.position).normalized;
+        Vector3 direction = (targetPosition - transform.position).normalized;
         direction.y = 0;
 
         if (direction == Vector3.zero)
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, targetRotation, Config.RotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Config.RotationSpeed * Time.deltaTime);
     }
 }

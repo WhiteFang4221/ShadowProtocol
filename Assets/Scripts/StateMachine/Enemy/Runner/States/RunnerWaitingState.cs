@@ -8,12 +8,12 @@ public class RunnerWaitingState : RunnerState
     public override void Enter()
     {
         _timerCount = 0;
-        EnemyInstance.EnemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
+        enemyVision.OnPlayerFirstSpotted += OnPlayerSpotted;
     }
 
     public override void Update()
     {
-        if (_timerCount >= Waypoints[EnemyInstance.CurrentWaypoint].WaitTime)
+        if (_timerCount >= waypoints[EnemyInstance.CurrentWaypoint].WaitTime)
         {
             SetNextWaypoint();
             StateSwitcher.SwitchState<RunnerPatrolState>();
@@ -24,7 +24,7 @@ public class RunnerWaitingState : RunnerState
 
     public override void Exit()
     {
-        EnemyInstance.EnemyVision.OnPlayerFirstSpotted -= OnPlayerSpotted;
+        enemyVision.OnPlayerFirstSpotted -= OnPlayerSpotted;
     }
     
     
@@ -37,7 +37,7 @@ public class RunnerWaitingState : RunnerState
     {
         int currentWaypoint;
         
-        if (EnemyInstance.CurrentWaypoint + 1 < Waypoints.Count)
+        if (EnemyInstance.CurrentWaypoint + 1 < waypoints.Count)
         {
             currentWaypoint = EnemyInstance.CurrentWaypoint + 1;
         }

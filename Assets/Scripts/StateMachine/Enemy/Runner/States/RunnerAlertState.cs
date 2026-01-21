@@ -3,11 +3,9 @@ using UnityEngine.AI;
 
 public class RunnerAlertState : RunnerState
 {
-    private NavMeshAgent _agent => EnemyInstance.Agent;
-    private EnemyVision _enemyVision => EnemyInstance.EnemyVision;
-
+    
     private float _remainingAlertTime;
-    private Vector3 _currentChaseTarget; 
+    private Vector3 _currentChaseTarget => enemyVision.PlayerPosition.Transform.position; 
 
     public RunnerAlertState(IStateSwitcher stateSwitcher, EnemyConfig config, Runner enemy) : base(stateSwitcher, config, enemy) { }
 
@@ -15,25 +13,23 @@ public class RunnerAlertState : RunnerState
     {
         Debug.Log("В ТРЕВОГЕ!");
         
-        _agent.isStopped = false;
-        _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
-        _agent.SetDestination(_currentChaseTarget);
-        _enemyVision.IsDecaySuspicion = true;
+        agent.isStopped = false;
+        agent.SetDestination(_currentChaseTarget);
+        enemyVision.IsDecaySuspicion = true;
         _remainingAlertTime = Config.TimeSeePlayerAfterLoss; 
     }
 
     public override void Update()
     {
-        _currentChaseTarget = _enemyVision.PlayerPosition.Transform.position;
-        _agent.SetDestination(_currentChaseTarget);
+        agent.SetDestination(_currentChaseTarget);
         
-        if (Vector3Extensions.IsEnoughClose(_agent.transform.position, _currentChaseTarget, Config.AttackRange))
+        if (Vector3Extensions.IsEnoughClose(agent.transform.position, _currentChaseTarget, Config.AttackRange))
         {
             StateSwitcher.SwitchState<RunnerAttackState>();
             return;
         }
 
-        if (_enemyVision.IsCurrentlySeeing)
+        if (enemyVision.IsCurrentlySeeing)
         {
             _remainingAlertTime = Config.TimeSeePlayerAfterLoss; 
         }
@@ -50,7 +46,7 @@ public class RunnerAlertState : RunnerState
 
     public override void Exit()
     {
-        _agent.isStopped = true; 
-        _enemyVision.IsDecaySuspicion = false; 
+        agent.isStopped = true; 
+        enemyVision.IsDecaySuspicion = false; 
     }
 }
